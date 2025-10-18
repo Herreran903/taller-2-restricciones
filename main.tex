@@ -1,0 +1,38 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{siunitx}
+
+\input{preambulo.tex}
+
+\title{Taller 2 — Extensiones del Job Shop Scheduling Problem en MiniZinc\\
+\large Mantenimiento programado y Tardanza ponderada}
+\author{John Freddy Belalcázar \\ Samuel Galindo Cuevas \\ Nicolás Herrera Marulanda}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+% -------- REPOSITORIO --------
+\section*{Repositorio del proyecto}
+Código fuente, instancias, scripts y PDF están disponibles en:\\
+\noindent\textbf{\url{https://github.com/Herreran903/taller-2-restricciones}}
+
+% -------- JOB SHOP EXTENDIDO CON MANTENIMIENTO ---------
+\input{secciones/01-jobshop_mantenimiento/00-jobshop_mantenimiento-intro.tex}
+\input{secciones/01-jobshop_mantenimiento/01-modelo.tex}
+\input{secciones/01-jobshop_mantenimiento/02-implementacion.tex}
+\input{secciones/01-jobshop_mantenimiento/03-pruebas.tex}
+\input{secciones/01-jobshop_mantenimiento/04-arboles.tex}
+\input{secciones/01-jobshop_mantenimiento/05-analisis-y-conclusiones.tex}
+
+% -------- JOB SHOP EXTENDIDO CON TARDANZA PONDERADA ---------
+\input{secciones/02-jobshop_tardanza/00-jobshop_tardanza-intro.tex}
+\input{secciones/02-jobshop_tardanza/01-modelo.tex}
+\input{secciones/02-jobshop_tardanza/02-implementacion.tex}
+\input{secciones/02-jobshop_tardanza/03-pruebas.tex}
+\input{secciones/02-jobshop_tardanza/04-arboles.tex}
+\input{secciones/02-jobshop_tardanza/05-analisis-y-conclusiones.tex}
+
+\end{document}

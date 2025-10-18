@@ -1,0 +1,104 @@
+% --- Codificación y tipografías ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% --- Tamaño de fuente global ---
+% (Usa el 11pt del \documentclass; si lo forzabas a 9pt, desactívalo)
+% \AtBeginDocument{\fontsize{9}{10.5}\selectfont} % <- COMENTAR/ELIMINAR
+
+% --- Márgenes más holgados ---
+\usepackage{geometry}
+\geometry{
+  a4paper,
+  top=2.2cm, bottom=2.5cm,
+  left=2.2cm, right=2.2cm,
+  headheight=13pt, headsep=12pt, footskip=20pt
+}
+
+% --- Gráficos ---
+\usepackage{graphicx}
+\graphicspath{{figuras/}{figs/}}
+
+% --- Matemáticas y tablas ---
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\sisetup{
+  detect-all,
+  output-decimal-marker = {.},
+  group-separator = {\,},
+  group-minimum-digits = 4
+}
+
+% --- Flotantes (tablas/figuras) ---
+\usepackage{float} % para [H]
+\usepackage[font=small,labelfont=bf,skip=8pt]{caption}
+\usepackage[section]{placeins}
+
+% Espacios más cómodos para floats
+\setlength{\textfloatsep}{14pt plus 4pt minus 3pt}
+\setlength{\floatsep}{12pt plus 4pt minus 3pt}
+\setlength{\intextsep}{12pt plus 4pt minus 3pt}
+
+% Entorno opcional para compactar (si alguna sección lo necesita)
+\newenvironment{compactfloats}{%
+  \begingroup
+  \setlength{\textfloatsep}{10pt plus 3pt minus 2pt}%
+  \setlength{\floatsep}{10pt plus 3pt minus 2pt}%
+  \setlength{\intextsep}{10pt plus 3pt minus 2pt}%
+  \captionsetup{skip=6pt}%
+  \renewcommand{\arraystretch}{1.0}%
+  \setlength{\tabcolsep}{5pt}%
+}{%
+  \endgroup
+}
+
+% --- Bibliografía ---
+\usepackage[numbers]{natbib}
+
+% --- Enlaces y referencias cruzadas ---
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  pdfauthor={Equipo Taller 2},
+  pdftitle={Taller 2 — Extensiones del Job Shop Scheduling}
+}
+\usepackage[nameinlink]{cleveref}
+
+% Nombres en español para cleveref
+\crefname{figure}{figura}{figuras}
+\Crefname{figure}{Figura}{Figuras}
+\crefname{table}{tabla}{tablas}
+\Crefname{table}{Tabla}{Tablas}
+\crefname{section}{sección}{secciones}
+\Crefname{section}{Sección}{Secciones}
+
+% --- Texto más “aireado” ---
+\linespread{1.02}            % interlínea un poco mayor
+\setlength{\parskip}{0.4em}  % espacio entre párrafos
+\setlength{\parindent}{14pt} % sangría de párrafo
+
+% Menos compresión alrededor de ecuaciones
+\makeatletter
+\g@addto@macro\normalsize{%
+  \setlength\abovedisplayskip{10pt}%
+  \setlength\belowdisplayskip{10pt}%
+  \setlength\abovedisplayshortskip{8pt}%
+  \setlength\belowdisplayshortskip{8pt}%
+}
+\makeatother
+
+% --- Listas y títulos menos compactos ---
+\usepackage{enumitem}
+\setlist{leftmargin=*, itemsep=4pt, topsep=6pt, parsep=2pt, partopsep=0pt}
+
+\usepackage[small,bf]{titlesec}
+\titlespacing*{\section}{0pt}{12pt plus 4pt minus 2pt}{8pt}
+\titlespacing*{\subsection}{0pt}{10pt plus 3pt minus 2pt}{6pt}
+\titlespacing*{\subsubsection}{0pt}{8pt  plus 2pt minus 1pt}{5pt}
