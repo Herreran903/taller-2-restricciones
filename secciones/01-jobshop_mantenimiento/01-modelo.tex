@@ -5,12 +5,12 @@
 \subsubsection*{Parámetros}
 \begin{description}
   \item[\textbf{P1 — \(J\):}] Conjunto de trabajos, \(J=\{1,\dots,\texttt{jobs}\}\).
-  \item[\textbf{P2 — \(M\):}] Conjunto de máquinas (una por posición de la ruta), \(M=\{1,\dots,\texttt{tasks}\}\).
+  \item[\textbf{P2 — \(M\):}] Conjunto de máquinas, \(M=\{1,\dots,\texttt{tasks}\}\).
   \item[\textbf{P3 — \(p_{i,m}\):}] Duración de la operación del trabajo \(i\) en la máquina \(m\); matriz \(\texttt{proc\_time}\in\mathbb{Z}_{\ge 0}^{J\times M}\).
   \item[\textbf{P4 — \(K_m\):}] Máximo de ventanas de mantenimiento por máquina; se modela con un tope \(\texttt{MAX\_MAINT\_WINDOWS}\) común y un indicador de validez.
   \item[\textbf{P5 — \([a_{m,k},\,b_{m,k})\):}] Ventana \(k\) de mantenimiento en la máquina \(m\), con inicio \(\texttt{maint\_start}[m,k]\) y fin \(\texttt{maint\_end}[m,k]\).
   \item[\textbf{P6 — \(\texttt{active}_{m,k}\):}] Indicador booleano de que la ventana \((m,k)\) es válida: \(\texttt{maint\_active}[m,k]=\texttt{true}\).
-  \item[\textbf{P7 — \(H\):}] Horizonte superior trivial \(H=\sum_{i\in J}\sum_{m\in M} p_{i,m}\) (se usa para acotar dominios).
+  \item[\textbf{P7 — \(H\):}] Horizonte superior trivial \(H=\sum_{i\in J}\sum_{m\in M} p_{i,m}\).
 \end{description}
 
 \subsubsection*{Variables}
@@ -45,7 +45,7 @@
 
 \subsubsection*{Restricciones redundantes}
 \begin{description}
-  \item[\textbf{R4 — Cota por trabajo (camino crítico trivial):}] El \emph{makespan} no puede ser menor que la suma de duraciones de cada trabajo.  
+  \item[\textbf{R4 — Cota por trabajo:}] El \emph{makespan} no puede ser menor que la suma de duraciones de cada trabajo.  
   \[
   \forall i\in J:\quad \textit{end}\ \ge\ \sum_{m\in M} p_{i,m}.
   \]
@@ -55,7 +55,7 @@
   \forall m\in M:\quad \textit{end}\ \ge\ \sum_{i\in J} p_{i,m}.
   \]
 
-  \item[\textbf{R6 — Cota superior por horizonte:}] Las fechas de inicio y el \emph{makespan} se restringen al horizonte \(H\) (útil para poda de dominios).  
+  \item[\textbf{R6 — Cota superior por horizonte:}] Las fechas de inicio y el \emph{makespan} se restringen al horizonte \(H\).  
   \[
   \forall i\in J,\ \forall m\in M:\ 0\le s_{i,m}\le H, 
   \qquad 0\le \textit{end}\le H.

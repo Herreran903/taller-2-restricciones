@@ -3,7 +3,14 @@
 \subsection{Implementación}\label{sec:01-jobshop_mantenimiento-implementacion}
 
 \subsubsection*{Modelo}
+El modelo se implementó directamente en MiniZinc siguiendo la formulación clásica del \emph{Job Shop Scheduling Problem}, ampliada con ventanas de mantenimiento por máquina. Cada operación se representa con su tiempo de inicio y duración, y las restricciones garantizan que se respeten las precedencias dentro de cada trabajo y la capacidad unitaria de las máquinas.  
+Las ventanas de mantenimiento se modelaron como intervalos bloqueados en los que no pueden solaparse operaciones, utilizando el mismo predicado de no solape que entre tareas. De este modo, los mantenimientos se integran de forma natural al flujo de programación y el solver puede decidir si reacomodar operaciones antes o después de cada pausa sin romper la factibilidad.  
+El objetivo es minimizar el \emph{makespan}, variable que representa el instante en que termina la última operación del conjunto de trabajos.
 
 \subsubsection*{Restricciones redundantes}
+Se incluyeron cotas inferiores sobre el \emph{makespan} tanto por trabajo como por máquina. Estas restricciones no cambian el conjunto de soluciones factibles, pero aportan información adicional al solver para reducir el espacio de búsqueda.  
+La primera cota impide que el \emph{makespan} sea menor que la suma de duraciones de cada trabajo, lo cual elimina combinaciones imposibles. La segunda cota fuerza que el tiempo total no sea inferior a la carga total de ninguna máquina, reforzando la consistencia de los dominios. En conjunto, estas redundancias ayudan a acelerar la convergencia sin modificar el resultado óptimo.
 
 \subsubsection*{Restricciones de simetría}
+El modelo puede presentar simetrías cuando existen trabajos con secuencias de operaciones idénticas. En esos casos, intercambiar los identificadores de dichos trabajos genera soluciones equivalentes que el solver podría explorar innecesariamente.  
+Para evitarlo, se impuso un orden léxico sobre los vectores de inicio de operaciones de los trabajos indistinguibles. Esto rompe las simetrías por renombrado y evita duplicar ramas en el árbol de búsqueda, manteniendo solo una representación por cada solución única. El efecto práctico es una exploración más eficiente y una reducción significativa del tiempo de resolución en instancias con trabajos repetidos.
