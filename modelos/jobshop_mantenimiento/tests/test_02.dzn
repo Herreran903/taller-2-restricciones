@@ -1,0 +1,33 @@
+% ---------- Instancia para comparar con/sin simetría ----------
+JOBS = 4;
+TASKS = 3;
+
+% Jobs 1 y 2 son idénticos -> fuente de simetría
+PROC_TIME = 
+[| 3, 2, 4
+ | 3, 2, 4
+ | 2, 3, 5
+ | 4, 1, 2 |];
+
+% Ventanas de mantenimiento (por máquina = TASK)
+MAX_MAINT_WINDOWS = 2;
+
+% array2d(TASK, 1..MAX_MAINT_WINDOWS, [...]) en orden m=1..TASKS, k=1..2
+MAINT_START  = array2d(1..TASKS, 1..MAX_MAINT_WINDOWS,
+  [ 0, 10,   % m1: [0,1] y [10,12]
+    3,  0,   % m2: [3,6] y (inactivo)
+    0,  0 ]  % m3: (inactivos)
+);
+
+MAINT_END    = array2d(1..TASKS, 1..MAX_MAINT_WINDOWS,
+  [ 1, 12,   % m1
+    6,  0,   % m2
+    0,  0 ]  % m3
+);
+
+MAINT_ACTIVE = array2d(1..TASKS, 1..MAX_MAINT_WINDOWS,
+  [ true, true,   % m1: dos ventanas activas
+    true, false,  % m2: solo la primera activa
+    false, false  % m3: ninguna activa
+  ]
+);
