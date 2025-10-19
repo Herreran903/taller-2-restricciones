@@ -3,14 +3,18 @@
 \subsection{Implementación}\label{sec:01-jobshop_mantenimiento-implementacion}
 
 \subsubsection*{Modelo}
-El modelo se implementó directamente en MiniZinc siguiendo la formulación clásica del \emph{Job Shop Scheduling Problem}, ampliada con ventanas de mantenimiento por máquina. Cada operación se representa con su tiempo de inicio y duración, y las restricciones garantizan que se respeten las precedencias dentro de cada trabajo y la capacidad unitaria de las máquinas.  
-Las ventanas de mantenimiento se modelaron como intervalos bloqueados en los que no pueden solaparse operaciones, utilizando el mismo predicado de no solape que entre tareas. De este modo, los mantenimientos se integran de forma natural al flujo de programación y el solver puede decidir si reacomodar operaciones antes o después de cada pausa sin romper la factibilidad.  
-El objetivo es minimizar el \emph{makespan}, variable que representa el instante en que termina la última operación del conjunto de trabajos.
+El modelo captura de forma correcta la estructura del problema mediante los parámetros definidos en la sección anterior y las restricciones principales \(R1\)–\(R3\).  
+Las variables \(s_{i,m}\) y \(\texttt{END}\) permiten representar explícitamente el instante de inicio y finalización de cada operación, de modo que cualquier configuración factible de estas variables corresponde a un cronograma real.  
+La restricción \(R1\) asegura la correcta secuencia de operaciones dentro de cada trabajo, preservando el orden tecnológico sin permitir solapamientos entre tareas consecutivas del mismo job.  
+La restricción \(R2\) implementa la capacidad unitaria de cada máquina, garantizando que solo una operación se ejecute a la vez en ella; esto se logra mediante la disyunción de no solape, lo que define implícitamente un orden válido entre operaciones que comparten recurso.  
+Finalmente, \(R3\) extiende el modelo clásico incorporando las ventanas de mantenimiento: los intervalos definidos por \(\texttt{MAINT\_START}\), \(\texttt{MAINT\_END}\) y activados por \(\texttt{MAINT\_ACTIVE}\) se tratan como periodos ocupados dentro de la misma lógica de exclusión que entre operaciones.
 
 \subsubsection*{Restricciones redundantes}
-Se incluyeron cotas inferiores sobre el \emph{makespan} tanto por trabajo como por máquina. Estas restricciones no cambian el conjunto de soluciones factibles, pero aportan información adicional al solver para reducir el espacio de búsqueda.  
-La primera cota impide que el \emph{makespan} sea menor que la suma de duraciones de cada trabajo, lo cual elimina combinaciones imposibles. La segunda cota fuerza que el tiempo total no sea inferior a la carga total de ninguna máquina, reforzando la consistencia de los dominios. En conjunto, estas redundancias ayudan a acelerar la convergencia sin modificar el resultado óptimo.
+Las restricciones \(R4\)–\(R6\) son lógicamente implicadas por el modelo y sólo refuerzan la propagación.  
+\(R4\) (cota por trabajo) obliga a \(\texttt{END}\) a ser al menos la suma de duraciones de cada trabajo, descartando de inmediato valores imposibles del objetivo.  
+\(R5\) (carga por máquina) exige que \(\texttt{END}\) no sea menor que la carga total procesada por cada máquina.  
+\(R6\) acota todas las variables al horizonte seguro \(H\); en la implementación esta cota se aplica de forma implícita mediante los dominios \([0,H]\) de \(s_{i,m}\) y \(\texttt{END}\).
 
 \subsubsection*{Restricciones de simetría}
-El modelo puede presentar simetrías cuando existen trabajos con secuencias de operaciones idénticas. En esos casos, intercambiar los identificadores de dichos trabajos genera soluciones equivalentes que el solver podría explorar innecesariamente.  
-Para evitarlo, se impuso un orden léxico sobre los vectores de inicio de operaciones de los trabajos indistinguibles. Esto rompe las simetrías por renombrado y evita duplicar ramas en el árbol de búsqueda, manteniendo solo una representación por cada solución única. El efecto práctico es una exploración más eficiente y una reducción significativa del tiempo de resolución en instancias con trabajos repetidos.
+Cuando existen trabajos con la misma secuencia de duraciones (\(\texttt{PROC\_TIME}[i,*]=\texttt{PROC\_TIME}[k,*]\)), el problema admite soluciones equivalentes por simple intercambio de etiquetas.  
+La restricción \(R7\) impone un orden léxico sobre los vectores de inicios \((s_{i,1},\dots,s_{i,|M|})\) para esos pares \(i<k\), de modo que se conserve un único representante por clase de permutación.
