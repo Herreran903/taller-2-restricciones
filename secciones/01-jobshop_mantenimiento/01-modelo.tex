@@ -3,11 +3,70 @@
 \subsection{Modelo}\label{sec:01-jobshop_mantenimiento-modelo}
 
 \subsubsection*{Parámetros}
+\begin{description}
+  \item[\textbf{P1 — \(J\):}] Conjunto de trabajos, \(J=\{1,\dots,\texttt{jobs}\}\).
+  \item[\textbf{P2 — \(M\):}] Conjunto de máquinas (una por posición de la ruta), \(M=\{1,\dots,\texttt{tasks}\}\).
+  \item[\textbf{P3 — \(p_{i,m}\):}] Duración de la operación del trabajo \(i\) en la máquina \(m\); matriz \(\texttt{proc\_time}\in\mathbb{Z}_{\ge 0}^{J\times M}\).
+  \item[\textbf{P4 — \(K_m\):}] Máximo de ventanas de mantenimiento por máquina; se modela con un tope \(\texttt{MAX\_MAINT\_WINDOWS}\) común y un indicador de validez.
+  \item[\textbf{P5 — \([a_{m,k},\,b_{m,k})\):}] Ventana \(k\) de mantenimiento en la máquina \(m\), con inicio \(\texttt{maint\_start}[m,k]\) y fin \(\texttt{maint\_end}[m,k]\).
+  \item[\textbf{P6 — \(\texttt{active}_{m,k}\):}] Indicador booleano de que la ventana \((m,k)\) es válida: \(\texttt{maint\_active}[m,k]=\texttt{true}\).
+  \item[\textbf{P7 — \(H\):}] Horizonte superior trivial \(H=\sum_{i\in J}\sum_{m\in M} p_{i,m}\) (se usa para acotar dominios).
+\end{description}
 
 \subsubsection*{Variables}
+\begin{description}
+  \item[\textbf{V1 — \(s_{i,m}\):}] Inicio de la operación del trabajo \(i\) en la máquina \(m\), con \(s_{i,m}\in[0,H]\).
+  \item[\textbf{V2 — \(\textit{end}\):}] \emph{Makespan} del programa, \(\textit{end}\in[0,H]\).
+\end{description}
 
 \subsubsection*{Restricciones principales}
+\begin{description}
+  \item[\textbf{R1 — Precedencias dentro del trabajo:}] Las operaciones de cada trabajo siguen su orden dado.  
+  \[
+  \forall i\in J,\ \forall m\in\{1,\dots,|M|-1\}:\quad
+  s_{i,m}+p_{i,m}\ \le\ s_{i,m+1},
+  \qquad
+  s_{i,|M|}+p_{i,|M|}\ \le\ \textit{end}.
+  \]
+
+  \item[\textbf{R2 — No solape por máquina:}] En cada máquina, las operaciones se procesan de a una (restricción disyuntiva).  
+  \[
+  \forall m\in M,\ \forall i,k\in J,\ i<k:\quad
+  \big(s_{i,m}+p_{i,m}\le s_{k,m}\big)\ \lor\ \big(s_{k,m}+p_{k,m}\le s_{i,m}\big).
+  \]
+
+  \item[\textbf{R3 — Bloqueos por mantenimiento:}] Ninguna operación se ejecuta durante una ventana activa de mantenimiento.  
+  \[
+  \forall m\in M,\ \forall k\in\{1,\dots,K_m\}\ \text{activa},\ \forall i\in J:\quad
+  \big(s_{i,m}+p_{i,m}\le a_{m,k}\big)\ \lor\ \big(b_{m,k}\le s_{i,m}\big),
+  \]
+  donde \(a_{m,k}=\texttt{maint\_start}[m,k]\) y \(b_{m,k}=\texttt{maint\_end}[m,k]\) con \(0\le a_{m,k}<b_{m,k}\le H\).
+\end{description}
 
 \subsubsection*{Restricciones redundantes}
+\begin{description}
+  \item[\textbf{R4 — Cota por trabajo (camino crítico trivial):}] El \emph{makespan} no puede ser menor que la suma de duraciones de cada trabajo.  
+  \[
+  \forall i\in J:\quad \textit{end}\ \ge\ \sum_{m\in M} p_{i,m}.
+  \]
+
+  \item[\textbf{R5 — Carga por máquina:}] El \emph{makespan} acota inferiormente la carga total de cada máquina.  
+  \[
+  \forall m\in M:\quad \textit{end}\ \ge\ \sum_{i\in J} p_{i,m}.
+  \]
+
+  \item[\textbf{R6 — Cota superior por horizonte:}] Las fechas de inicio y el \emph{makespan} se restringen al horizonte \(H\) (útil para poda de dominios).  
+  \[
+  \forall i\in J,\ \forall m\in M:\ 0\le s_{i,m}\le H, 
+  \qquad 0\le \textit{end}\le H.
+  \]
+\end{description}
 
 \subsubsection*{Restricciones de simetría}
+\begin{description}
+  \item[\textbf{S1 — Orden para trabajos indistinguibles (opcional):}] Si dos trabajos \(i\) y \(k\) tienen \emph{idéntico} vector de duraciones \((p_{i,1},\dots,p_{i,|M|})=(p_{k,1},\dots,p_{k,|M|})\), se puede imponer un orden léxico sobre sus inicios para romper simetrías de etiqueta:  
+  \[
+  (s_{i,1},\dots,s_{i,|M|})\ \le_{\text{lex}}\ (s_{k,1},\dots,s_{k,|M|}) \quad \text{para } i<k.
+  \]
+  Esta restricción no elimina soluciones óptimas distintas; únicamente selecciona un representante por clase de permutación entre trabajos indistinguibles.
+\end{description}

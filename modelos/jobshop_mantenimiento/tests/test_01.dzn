@@ -1,0 +1,28 @@
+jobs = 3;
+tasks = 3;
+
+proc_time = array2d(1..3, 1..3,
+  [ 3, 2, 2,
+    2, 3, 1,
+    4, 3, 2 ]
+);
+
+MAX_MAINT_WINDOWS = 2;
+
+maint_start = array2d(1..3, 1..2,
+  [ 2,  8,
+    0,  6,
+    5, 15 ]
+);
+
+maint_end = array2d(1..3, 1..2,
+  [ 3, 10,
+    1,  7,
+    6, 17 ]
+);
+
+maint_active = array2d(1..3, 1..2,
+  [ true, true,
+    true, true,
+    true, true ]
+);
