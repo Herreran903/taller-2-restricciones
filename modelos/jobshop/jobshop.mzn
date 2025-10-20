@@ -3,15 +3,10 @@ set of int: JOB = 1..jobs;
 int: tasks;                                   % no of tasks per job
 set of int: TASK = 1..tasks;
 array [JOB,TASK] of int: d;                   % task durations
-array [JOB] of int: weights;
-array [JOB] of int: due_dates;
 int: total = sum(i in JOB, j in TASK)(d[i,j]);% total duration
 int: digs = ceil(log(10.0,total));            % digits for output
 array [JOB,TASK] of var 0..total: s;          % start times
-array [JOB] of var 0.. total: end_job;        % end times
-array[JOB] of var 0..total: T;                % tardiness
 var 0..total: end;                            % total end time
-var int: w;
 
 % nooverlap
 predicate no_overlap(var int:s1, int:d1, var int:s2, int:d2) =
@@ -31,29 +26,9 @@ constraint %% ensure no overlap of tasks
         )
     );
 
-constraint forall(i in JOB, j in TASK)(
-  end_job[i] >= s[i,j] + d[i,j]
-);
+solve minimize end;
 
-constraint forall(i in JOB)(
-  T[i] >= end_job[i] - due_dates[i] /\ T[i] >= 0
-);
-
-var int: obj = sum(i in JOB)( weights[i] * T[i] );
-solve minimize obj;
-
-%solve :: seq_search([
-%             int_search(s, smallest, indomain_min),
-%             int_search([end], input_order, indomain_min)])
-%      minimize end;
-
-
-%solve :: seq_search([
-%             int_search([end], input_order, indomain_min),
-%             int_search(s, smallest, indomain_min)])
-%      minimize end;
-
-output ["end = \(w)\n"] ++
+output ["end = \(end)\n"] ++
        [ show_int(digs,s[i,j]) ++ " " ++ 
          if j == tasks then "\n" else "" endif |
          i in JOB, j in TASK ];
