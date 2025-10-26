@@ -1,0 +1,11 @@
+% 4x5, Múltiples Máquinas (TASKS=5) y Maint. Fijo. Alta densidad en máquinas.
+JOBS = 4;
+TASKS = 5;
+
+PROC_TIME = array2d(1..4, 1..5, [ 2, 1, 3, 4, 2, 3, 2, 1, 1, 3, 1, 4, 2, 3, 1, 4, 1, 3, 2, 2 ]);
+
+MAX_MAINT_WINDOWS = 1;
+
+MAINT_START = array2d(1..5, 1..1, [ 0, 0, 10, 0, 15 ]);
+MAINT_END = array2d(1..5, 1..1, [ 0, 0, 11, 0, 16 ]);
+MAINT_ACTIVE = array2d(1..5, 1..1, [ false, false, true, false, true ]);
