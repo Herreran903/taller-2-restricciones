@@ -31,16 +31,16 @@ constraint %% ensure no overlap of tasks
         )
     );
 
-constraint forall(i in JOB, j in TASK)(
-  end_job[i] >= s[i,j] + d[i,j]
+constraint forall(j in JOB)(
+  end_job[j] = s[j, tasks] + d[j, tasks]
 );
 
-constraint forall(i in JOB)(
-  T[i] >= end_job[i] - due_dates[i] /\ T[i] >= 0
+constraint forall(j in JOB)(
+  T[j] >= end_job[j] - due_dates[j] /\ T[j] >= 0
 );
 
-var int: obj = sum(i in JOB)( weights[i] * T[i] );
-solve minimize obj;
+w = sum(j in JOB)( weights[j] * T[j]);
+solve minimize w;
 
 %solve :: seq_search([
 %             int_search(s, smallest, indomain_min),
