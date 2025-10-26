@@ -1,0 +1,11 @@
+% 6x4, Simetría J5 = J6 + Mantenimiento. Prueba interacción de (3) y (6).
+JOBS = 6;
+TASKS = 4;
+
+PROC_TIME = array2d(1..6, 1..4, [ 1, 2, 3, 4, 4, 3, 2, 1, 5, 1, 1, 5, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2 ]);
+
+MAX_MAINT_WINDOWS = 1;
+
+MAINT_START = array2d(1..4, 1..1, [ 0, 8, 0, 15 ]);
+MAINT_END = array2d(1..4, 1..1, [ 0, 9, 0, 16 ]);
+MAINT_ACTIVE = array2d(1..4, 1..1, [ false, true, false, true ]);

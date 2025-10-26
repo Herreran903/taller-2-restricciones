@@ -1,0 +1,93 @@
+# =========================
+# macOS / SO
+# =========================
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# =========================
+# Editores / IDE
+# =========================
+.vscode/
+.idea/
+*.code-workspace
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# =========================
+# LaTeX (auxiliares)
+# =========================
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.lof
+*.lot
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+*.log
+
+# PDFs generados (mantener el principal)
+*.pdf
+!main.pdf
+
+# =========================
+# MiniZinc / Resultados
+# =========================
+# Compilados / salidas del solver
+*.fzn
+*.ozn
+*.jsonl
+
+# Resultados generados por el runner
+modelos/**/results/artifacts/**
+modelos/**/results/flat/**
+modelos/**/results/*.log.txt
+modelos/**/results/*.sol.txt
+
+# Conservar el CSV agregado de resultados
+!modelos/**/results/results.csv
+
+# Tests: mantener instancias .dzn en /tests
+*.dzn
+!modelos/**/tests/*.dzn
+
+# =========================
+# Logs y temporales genéricos
+# =========================
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.orig
+
+# =========================
+# Node (por si hay utilidades JS)
+# =========================
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-lock.yaml

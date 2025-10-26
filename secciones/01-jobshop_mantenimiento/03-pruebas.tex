@@ -1,31 +1,112 @@
-% !TEX root = ../../main.tex
+%!TEX root = ../../main.tex
 
 \subsection{Pruebas}\label{sec:01-jobshop_mantenimiento-pruebas}
 
-\begin{compactfloats}
-\begin{table}[H]
-  \centering
-  \small
-  \setlength{\tabcolsep}{10.8pt}
-  \caption{Resultados de pruebas \textbf{con} restricciones redundantes.}
-  \label{tab:pruebas-jobshop_mantenimiento-on}
-  \begin{tabular}{l l l l l r r r}
-    \toprule
-    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{time} & \textbf{nodes} & \textbf{fail} & \textbf{depth} \\
-  \end{tabular}
-\end{table}
+\small
 
-\begin{table}[H]
-  \centering
-  \small
-  \setlength{\tabcolsep}{10.8pt}
-  \caption{Resultados de pruebas \textbf{sin} restricciones redundantes.}
-  \label{tab:pruebas-jobshop_mantenimiento-off}
-  \begin{tabular}{l l l l r r r r}
-    \toprule
-    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{time} & \textbf{nodes} & \textbf{fail} & \textbf{depth} \\
-  \end{tabular}
-\end{table}
-\end{compactfloats}
+\begin{longtable}{l l l l r r r r}
+\caption{Resultados de pruebas \textbf{con} restricciones redundantes.}\label{tab:pruebas-jobshop_mantenimiento-on}\\
+\toprule
+\textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
 
-\FloatBarrier
+\multicolumn{8}{l}{\textit{Gecode (Estrategia: first\_fail + indomain\_min)}} \\
+\midrule
+test\_01 & gecode & first\_fail & indomain\_min & 9.762 & 11 & 2 & 4 \\
+test\_02 & gecode & first\_fail & indomain\_min & 0.400 & 11 & 3 & 7 \\
+test\_03 & gecode & first\_fail & indomain\_min & 2.130 & 26 & 9 & 9 \\
+test\_04 & gecode & first\_fail & indomain\_min & 0.803 & 21 & 6 & 10 \\
+test\_05 & gecode & first\_fail & indomain\_min & 0.587 & 34 & 9 & 12 \\
+test\_06 & gecode & first\_fail & indomain\_min & 1.237 & 380 & 173 & 16 \\
+test\_07 & gecode & first\_fail & indomain\_min & 1.867 & 429 & 198 & 27 \\
+test\_08 & gecode & first\_fail & indomain\_min & 0.842 & 46 & 10 & 21 \\
+test\_09 & gecode & first\_fail & indomain\_min & 1.012 & 37 & 10 & 16 \\
+test\_10 & gecode & first\_fail & indomain\_min & 16.431 & 7563 & 3768 & 25 \\
+\midrule
+\multicolumn{8}{l}{\textit{Gecode (Estrategia: dom\_w\_deg + indomain\_split)}} \\
+\midrule
+test\_01 & gecode & dom\_w\_deg & indomain\_split & 0.390 & 11 & 3 & 6 \\
+test\_02 & gecode & dom\_w\_deg & indomain\_split & 0.332 & 22 & 5 & 16 \\
+test\_03 & gecode & dom\_w\_deg & indomain\_split & 0.539 & 52 & 15 & 30 \\
+test\_04 & gecode & dom\_w\_deg & indomain\_split & 0.733 & 37 & 8 & 22 \\
+test\_05 & gecode & dom\_w\_deg & indomain\_split & 0.599 & 29 & 6 & 25 \\
+test\_06 & gecode & dom\_w\_deg & indomain\_split & 1.184 & 231 & 91 & 51 \\
+test\_07 & gecode & dom\_w\_deg & indomain\_split & 1.822 & 81 & 25 & 44 \\
+test\_08 & gecode & dom\_w\_deg & indomain\_split & 0.869 & 62 & 16 & 48 \\
+test\_09 & gecode & dom\_w\_deg & indomain\_split & 1.392 & 65 & 19 & 46 \\
+test\_10 & gecode & dom\_w\_deg & indomain\_split & 2.001 & 245 & 104 & 61 \\
+\midrule
+\multicolumn{8}{l}{\textit{Gecode (Estrategia: input\_order + indomain\_min)}} \\
+\midrule
+test\_01 & gecode & input\_order & indomain\_min & 0.239 & 12 & 3 & 5 \\
+test\_02 & gecode & input\_order & indomain\_min & 0.313 & 11 & 3 & 7 \\
+test\_03 & gecode & input\_order & indomain\_min & 0.454 & 39 & 16 & 9 \\
+test\_04 & gecode & input\_order & indomain\_min & 0.415 & 14 & 4 & 10 \\
+test\_05 & gecode & input\_order & indomain\_min & 0.587 & 18 & 5 & 13 \\
+test\_06 & gecode & input\_order & indomain\_min & 2.321 & 794 & 385 & 16 \\
+test\_07 & gecode & input\_order & indomain\_min & 2.761 & 112 & 48 & 21 \\
+test\_08 & gecode & input\_order & indomain\_min & 0.824 & 38 & 10 & 21 \\
+test\_09 & gecode & input\_order & indomain\_min & 1.081 & 94 & 35 & 16 \\
+test\_10 & gecode & input\_order & indomain\_min & 13.913 & 7375 & 3671 & 25 \\
+\midrule
+\multicolumn{8}{l}{\textit{Chuffed (Estrategia: first\_fail + indomain\_min)}} \\
+\midrule
+test\_01 & chuffed & first\_fail & indomain\_min & 1.000 & 13 & 1 & 5 \\
+test\_02 & chuffed & first\_fail & indomain\_min & 0.000 & 13 & 2 & 8 \\
+test\_03 & chuffed & first\_fail & indomain\_min & 0.000 & 27 & 5 & 10 \\
+test\_04 & chuffed & first\_fail & indomain\_min & 5.000 & 24 & 3 & 11 \\
+test\_05 & chuffed & first\_fail & indomain\_min & 1.000 & 37 & 6 & 13 \\
+test\_06 & chuffed & first\_fail & indomain\_min & 1.000 & 131 & 41 & 17 \\
+test\_07 & chuffed & first\_fail & indomain\_min & 2.000 & 114 & 31 & 21 \\
+test\_08 & chuffed & first\_fail & indomain\_min & 1.000 & 53 & 4 & 22 \\
+test\_09 & chuffed & first\_fail & indomain\_min & 1.000 & 58 & 10 & 17 \\
+test\_10 & chuffed & first\_fail & indomain\_min & 3.000 & 206 & 64 & 26 \\
+\midrule
+\multicolumn{8}{l}{\textit{Chuffed (Estrategia: dom\_w\_deg + indomain\_split)}} \\
+\midrule
+test\_01 & chuffed & dom\_w\_deg & indomain\_split & 0.000 & 14 & 1 & 8 \\
+test\_02 & chuffed & dom\_w\_deg & indomain\_split & 0.000 & 23 & 1 & 19 \\
+test\_03 & chuffed & dom\_w\_deg & indomain\_split & 0.000 & 58 & 6 & 32 \\
+test\_04 & chuffed & dom\_w\_deg & indomain\_split & 0.000 & 42 & 1 & 32 \\
+test\_05 & chuffed & dom\_w\_deg & indomain\_split & 0.000 & 50 & 2 & 45 \\
+test\_06 & chuffed & dom\_w\_deg & indomain\_split & 1.000 & 237 & 44 & 75 \\
+test\_07 & chuffed & dom\_w\_deg & indomain\_split & 2.000 & 146 & 8 & 98 \\
+test\_08 & chuffed & dom\_w\_deg & indomain\_split & 1.000 & 114 & 2 & 90 \\
+test\_09 & chuffed & dom\_w\_deg & indomain\_split & 1.000 & 125 & 8 & 62 \\
+test\_10 & chuffed & dom\_w\_deg & indomain\_split & 3.000 & 484 & 62 & 121 \\
+\midrule
+\multicolumn{8}{l}{\textit{Chuffed (Estrategia: input\_order + indomain\_min)}} \\
+\midrule
+test\_01 & chuffed & input\_order & indomain\_min & 0.000 & 12 & 1 & 6 \\
+test\_02 & chuffed & input\_order & indomain\_min & 0.000 & 13 & 2 & 8 \\
+test\_03 & chuffed & input\_order & indomain\_min & 0.000 & 23 & 4 & 10 \\
+test\_04 & chuffed & input\_order & indomain\_min & 0.000 & 18 & 1 & 11 \\
+test\_05 & chuffed & input\_order & indomain\_min & 0.000 & 19 & 2 & 14 \\
+test\_06 & chuffed & input\_order & indomain\_min & 2.000 & 153 & 83 & 17 \\
+test\_07 & chuffed & input\_order & indomain\_min & 1.000 & 50 & 9 & 22 \\
+test\_08 & chuffed & input\_order & indomain\_min & 1.000 & 40 & 4 & 22 \\
+test\_09 & chuffed & input\_order & indomain\_min & 1.000 & 65 & 12 & 17 \\
+test\_10 & chuffed & input\_order & indomain\_min & 3.000 & 244 & 69 & 26 \\
+
+\end{longtable}
+
+\begin{longtable}{l l l l r r r r}
+\caption{Resultados de pruebas \textbf{sin} restricciones redundantes.}\label{tab:pruebas-jobshop_mantenimiento-off}\\
+\toprule
+\textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\end{longtable}
