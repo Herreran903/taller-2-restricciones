@@ -84,13 +84,13 @@ constraint
 array[int] of var int: BRANCH_VARS = [ S[i,j] | i in JOB, j in TASK ];
 
 % [H1] Heurística 1 — clásica
-% solve :: int_search(BRANCH_VARS, first_fail,    indomain_min,   complete) minimize END;
+% solve :: int_search(BRANCH_VARS, first_fail, indomain_min, complete) minimize END;
 
 % [H2] Heurística 2 — informada por conflictos
-% solve :: int_search(BRANCH_VARS, dom_w_deg,     indomain_split, complete) minimize END;
+% solve :: int_search(BRANCH_VARS, dom_w_deg, indomain_split, complete) minimize END;
 
 % [H3] Heurística 3 — orden de entrada
-% solve :: int_search(BRANCH_VARS, input_order,   indomain_min,   complete) minimize END;
+% solve :: int_search(BRANCH_VARS, input_order, indomain_min, complete) minimize END;
 
 % [D] Default del solver
 solve minimize END;

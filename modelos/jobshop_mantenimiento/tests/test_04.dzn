@@ -1,0 +1,11 @@
+% 3x3, Maint. Intermedio. Introduce una sola ventana de interrupción.
+JOBS = 3;
+TASKS = 3;
+
+PROC_TIME = array2d(1..3, 1..3, [ 3, 2, 2, 2, 3, 1, 4, 3, 2 ]);
+
+MAX_MAINT_WINDOWS = 1;
+
+MAINT_START = array2d(1..3, 1..1, [ 0, 6, 0 ]);
+MAINT_END = array2d(1..3, 1..1, [ 0, 8, 0 ]);
+MAINT_ACTIVE = array2d(1..3, 1..1, [ false, true, false ]);
