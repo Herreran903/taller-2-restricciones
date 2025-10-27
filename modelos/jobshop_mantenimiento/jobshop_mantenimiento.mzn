@@ -1,3 +1,4 @@
+% MODEL_ID: jobshop
 % --------------------------------------------------------------
 % JOBSHOP_MANTENIMIENTO.MZN — JSSP con ventanas de mantenimiento por máquina
 % - Objetivo: minimizar el makespan (END).

@@ -1,11 +1,42 @@
-% 4x5, Múltiples Máquinas (TASKS=5) y Maint. Fijo. Alta densidad en máquinas.
-JOBS = 4;
-TASKS = 5;
+JOBS = 5;
+TASKS = 7;
 
-PROC_TIME = array2d(1..4, 1..5, [ 2, 1, 3, 4, 2, 3, 2, 1, 1, 3, 1, 4, 2, 3, 1, 4, 1, 3, 2, 2 ]);
+PROC_TIME = array2d(1..5, 1..7, [
+    4, 6, 2, 5, 8, 3, 7,  % Job 1
+    6, 3, 7, 4, 5, 9, 2,  % Job 2
+    5, 8, 4, 7, 3, 6, 5,  % Job 3
+    7, 4, 9, 3, 6, 2, 8,  % Job 4
+    3, 7, 5, 6, 9, 4, 6   % Job 5
+]);
 
-MAX_MAINT_WINDOWS = 1;
+MAX_MAINT_WINDOWS = 2;
 
-MAINT_START = array2d(1..5, 1..1, [ 0, 0, 10, 0, 15 ]);
-MAINT_END = array2d(1..5, 1..1, [ 0, 0, 11, 0, 16 ]);
-MAINT_ACTIVE = array2d(1..5, 1..1, [ false, false, true, false, true ]);
+MAINT_START = array2d(1..7, 1..2, [
+     0,  0,  % Maq 1
+     8,  0,  % Maq 2
+     0,  0,  % Maq 3
+    15,  0,  % Maq 4
+     0,  0,  % Maq 5
+    12,  0,  % Maq 6
+     0,  0   % Maq 7
+]);
+
+MAINT_END = array2d(1..7, 1..2, [
+     0,  0,  % Maq 1
+    11,  0,  % Maq 2
+     0,  0,  % Maq 3
+    18,  0,  % Maq 4
+     0,  0,  % Maq 5
+    16,  0,  % Maq 6
+     0,  0   % Maq 7
+]);
+
+MAINT_ACTIVE = array2d(1..7, 1..2, [
+    false, false,  % Maq 1
+     true, false,  % Maq 2
+    false, false,  % Maq 3
+     true, false,  % Maq 4
+    false, false,  % Maq 5
+     true, false,  % Maq 6
+    false, false   % Maq 7
+]);

@@ -1,11 +1,33 @@
-% 4x2, Simetría Pura J1 = J2. La restricción (6) debe ser efectiva.
-JOBS = 4;
-TASKS = 2;
+JOBS = 5;
+TASKS = 4;
 
-PROC_TIME = array2d(1..4, 1..2, [ 5, 5, 5, 5, 1, 8, 7, 1 ]);
+PROC_TIME = array2d(1..5, 1..4, [
+    7, 3, 5, 8,  % Job 1
+    4, 9, 2, 6,  % Job 2
+    6, 5, 7, 3,  % Job 3
+    8, 2, 4, 9,  % Job 4
+    5, 6, 8, 4   % Job 5
+]);
 
-MAX_MAINT_WINDOWS = 1;
+MAX_MAINT_WINDOWS = 2;
 
-MAINT_START = array2d(1..2, 1..1, [ 0, 0 ]);
-MAINT_END = array2d(1..2, 1..1, [ 0, 0 ]);
-MAINT_ACTIVE = array2d(1..2, 1..1, [ false, false ]);
+MAINT_START = array2d(1..4, 1..2, [
+     0, 0,  % Maq 1
+    12, 0,  % Maq 2
+     0, 0,  % Maq 3
+    15, 0   % Maq 4
+]);
+
+MAINT_END = array2d(1..4, 1..2, [
+     0, 0,  % Maq 1
+    16, 0,  % Maq 2
+     0, 0,  % Maq 3
+    19, 0   % Maq 4
+]);
+
+MAINT_ACTIVE = array2d(1..4, 1..2, [
+    false, false,  % Maq 1
+     true, false,  % Maq 2
+    false, false,  % Maq 3
+     true, false   % Maq 4
+]);
