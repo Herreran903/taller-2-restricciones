@@ -1,3 +1,53 @@
 % !TEX root = ../../main.tex
 
 \subsection{Análisis y conclusiones}\label{sec:01-jobshop_mantenimiento-analisis-y-conclusiones}
+
+El análisis inicial se centra en evaluar el impacto de las restricciones redundantes (R4 y R5) cuando la restricción de simetría (R6) se mantiene activa. Para ello, se comparan los resultados obtenidos al optimizar el makespan con ambas restricciones activas frente a los obtenidos únicamente con la restricción de simetría activa.
+
+Observando el comportamiento del solver Gecode, se evidencia que la efectividad de las restricciones redundantes está fuertemente ligada a la estrategia de búsqueda utilizada. Con la heurística \texttt{first\_fail} (\texttt{ff\_min}), las restricciones redundantes resultaron ser mayormente perjudiciales. En casi todas las instancias, el tiempo de ejecución aumentó y tanto el número de nodos explorados como los fallos fueron significativamente mayores. Esto sugiere que el costo adicional de propagar estas restricciones no se compensa con una poda efectiva del árbol de búsqueda para esta estrategia, generando un \textit{overhead} innecesario.
+
+Por el contrario, con la estrategia informada \texttt{dom\_w\_deg} (\texttt{wdeg\_split}), las restricciones redundantes mostraron un beneficio general en Gecode. Consistentemente redujeron el número de nodos y fallos, indicando una poda más temprana del espacio de búsqueda, lo cual se tradujo en mejoras de tiempo en varias instancias, aunque con excepciones notables como \texttt{test\_10}. Finalmente, con la estrategia \texttt{input\_order} (\texttt{inorder\_min}), similar a \texttt{ff\_min}, las redundantes no aportaron beneficios claros e incluso empeoraron el rendimiento en algunos casos, especialmente visible en instancias que alcanzaron el tiempo límite, donde la exploración del árbol fue comparable o mayor.
+
+El solver Chuffed mostró una interacción diferente con las restricciones redundantes. Con la estrategia \texttt{ff\_min}, las redundantes ayudaron consistentemente a reducir el número de nodos y fallos, aunque el impacto en el tiempo de ejecución fue variable y sin un patrón definido, posiblemente debido a la eficiencia intrínseca de Chuffed en la propagación y poda.
+
+Para la estrategia \texttt{wdeg\_split} en Chuffed, las redundantes también demostraron ser beneficiosas, reduciendo nodos y fallos de forma consistente y logrando mejoras, aunque modestas, en el tiempo de ejecución para las instancias más complejas como \texttt{test\_10}. Con \texttt{inorder\_min}, los resultados fueron mixtos; si bien se observó una reducción en nodos y fallos, el tiempo de ejecución a veces mejoró y otras veces empeoró, similar al comportamiento visto con \texttt{ff\_min}.
+
+De esta comparación se derivan conclusiones generales importantes sobre las restricciones redundantes R4 y R5 y la elección de solver/estrategia. Su efectividad no es universal, sino que depende crucialmente de la estrategia de búsqueda y, en menor medida, del solver. Heurísticas más informadas como \texttt{wdeg\_split} tienden a explotar mejor la información adicional proporcionada por las redundantes para podar la búsqueda. En cambio, con estrategias más simples, el costo de mantener y propagar estas restricciones puede superar el beneficio obtenido. Chuffed parece ser más robusto y capaz de beneficiarse (o al menos no ser perjudicado significativamente) por las redundantes en más escenarios que Gecode. Además, el posible beneficio de estas restricciones tiende a ser más perceptible en las instancias de mayor complejidad computacional.
+
+Consistentemente, la estrategia \texttt{dom\_w\_deg} emerge como la opción más robusta y eficiente en general, tanto para Gecode como para Chuffed. Esta heurística informada, que prioriza variables con dominios pequeños y alta participación en conflictos, logra una poda del árbol de búsqueda significativamente mejor, reflejada en menores nodos y fallos en la mayoría de las instancias. Es precisamente con \texttt{wdeg\_split} donde las restricciones redundantes muestran su mayor valor, ayudando a reducir aún más el espacio explorado y, frecuentemente, el tiempo de ejecución, sobre todo en problemas más complejos.
+
+En contraste, las estrategias más simples como \texttt{first\_fail} (\texttt{ff\_min}) e \texttt{input\_order} (\texttt{inorder\_min}) mostraron un rendimiento mucho más variable y, a menudo, inferior. Con estas heurísticas, las restricciones redundantes pueden incluso ser perjudiciales (especialmente en Gecode), añadiendo costo de propagación sin un beneficio claro en la poda.
+
+En cuanto a los solvers, Chuffed demostró ser notablemente más rápido y eficiente que Gecode en la mayoría de las configuraciones probadas, particularmente con la estrategia \texttt{wdeg\_split}. Chuffed parece explotar mejor la estructura del problema y las restricciones, incluyendo las redundantes, logrando soluciones óptimas en menos tiempo y con una exploración considerablemente menor.
+
+Por lo tanto, la combinación Chuffed + \texttt{wdeg\_split} se perfila como la elección preferente para este modelo, beneficiándose además de la inclusión de las restricciones redundantes (R4 y R5) para mejorar la poda en instancias desafiantes.
+
+Continuando el análisis, se examina ahora el efecto de la restricción de rompimiento de simetría (R6), comparando los resultados de las ejecuciones que la incluían con aquellas que no, manteniendo en ambos casos las restricciones redundantes activas. Dado que esta restricción solo tiene efecto en presencia de trabajos idénticos, la comparación se enfoca exclusivamente en las instancias \texttt{test\_01} y \texttt{test\_02}.
+
+En el contexto de la optimización (búsqueda de la solución óptima), la restricción de simetría demostró ser altamente beneficiosa, particularmente en la instancia más compleja \texttt{test\_02}. Para el solver Gecode, la activación de R6 consistentemente redujo el número de nodos explorados y fallos en ambas instancias, aunque el impacto en el tiempo fue mixto para \texttt{test\_01} (a veces ligeramente más lento con simetría activa, como con \texttt{ff\_min} y \texttt{wdeg\_split}). Sin embargo, en \texttt{test\_02}, la mejora fue sustancial en todos los aspectos, especialmente con \texttt{inorder\_min} donde el tiempo se redujo de 17.3s a 10.2s.
+
+Con el solver Chuffed, el beneficio de la restricción de simetría fue aún más pronunciado. En \texttt{test\_01}, se observaron mejoras modestas pero consistentes en tiempo, nodos y fallos. En \texttt{test\_02}, la reducción fue drástica: por ejemplo, con \texttt{ff\_min}, el tiempo bajó de 35ms a 8ms, y con \texttt{wdeg\_split}, de 10ms a 4ms, acompañado de significativas reducciones en nodos y fallos. Estos resultados sugieren que la restricción \texttt{lex\_lesseq} poda eficazmente ramas equivalentes del árbol de búsqueda, mejorando notablemente la eficiencia de la optimización en presencia de simetría.
+
+Para cuantificar la reducción del espacio de búsqueda debida
+a la simetría, se realizaron pruebas adicionales en modo \texttt{satisfy}
+buscando todas las soluciones posibles.
+Se compararon las ejecuciones con redundancia y simetría
+frente a aquellas con redundancia pero sin simetría.
+Idealmente, se esperaría una reducción significativa en el número de soluciones
+encontradas al activar R6. Sin embargo, los resultados muestran que casi todas
+las configuraciones alcanzaron el tiempo límite de 60 segundos
+antes de completar la enumeración total. A pesar de esto, se observa una
+tendencia consistente: en todas las combinaciones de solver y estrategia,
+el número de soluciones reportadas \textit{antes del timeout} fue ligeramente
+menor cuando la restricción de simetría estaba activa. Por ejemplo,
+con Chuffed y \texttt{ff\_min} en \texttt{test\_01}, se reportaron 1,517,936
+soluciones con simetría frente a 1,566,122 sin ella. La reducción no es drástica debido tanto al tiempo límite como a que la restricción solo elimina permutaciones entre los jobs idénticos, siendo el impacto global moderado por la presencia de jobs únicos. Aun así, esta reducción en soluciones encontradas, nodos explorados
+y fallos confirma que
+la restricción R6 está funcionando correctamente, eliminando soluciones
+equivalentes y podando el espacio de búsqueda.
+
+En conclusión, la restricción de simetría R6 es una adición valiosa al modelo
+para instancias con trabajos idénticos, mejorando el
+rendimiento en la optimización y demostrando su capacidad para reducir el
+espacio de búsqueda en la enumeración de todas las soluciones, aunque las
+limitaciones de tiempo y que solo afecta a permutaciones de trabajos idénticos impidieron observar un recorte drástico en este último escenario.

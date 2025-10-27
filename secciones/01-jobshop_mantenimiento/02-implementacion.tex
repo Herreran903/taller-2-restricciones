@@ -3,18 +3,18 @@
 \subsection{Implementación}\label{sec:01-jobshop_mantenimiento-implementacion}
 
 \subsubsection*{Modelo}
-El modelo captura de forma correcta la estructura del problema mediante los parámetros definidos en la sección anterior y las restricciones principales \(R1\)–\(R3\).  
-Las variables \(s_{i,m}\) y \(\texttt{END}\) permiten representar explícitamente el instante de inicio y finalización de cada operación, de modo que cualquier configuración factible de estas variables corresponde a un cronograma real.  
-La restricción \(R1\) asegura la correcta secuencia de operaciones dentro de cada trabajo, preservando el orden tecnológico sin permitir solapamientos entre tareas consecutivas del mismo job.  
-La restricción \(R2\) implementa la capacidad unitaria de cada máquina, garantizando que solo una operación se ejecute a la vez en ella; esto se logra mediante la disyunción de no solape, lo que define implícitamente un orden válido entre operaciones que comparten recurso.  
-Finalmente, \(R3\) extiende el modelo clásico incorporando las ventanas de mantenimiento: los intervalos definidos por \(\texttt{MAINT\_START}\), \(\texttt{MAINT\_END}\) y activados por \(\texttt{MAINT\_ACTIVE}\) se tratan como periodos ocupados dentro de la misma lógica de exclusión que entre operaciones.
+El modelo captura de forma correcta la estructura del problema mediante los parámetros definidos en la sección anterior y las restricciones principales \(R1\)–\(R3\).
+Las variables \(s_{i,m}\) y \(\texttt{END}\) permiten representar explícitamente el instante de inicio y finalización de cada operación, de modo que cualquier configuración factible de estas variables corresponde a un cronograma real.
+La restricción \(R1\) asegura la correcta secuencia de operaciones dentro de cada trabajo, preservando el orden tecnológico sin permitir solapamientos entre tareas consecutivas del mismo job.
+La restricción \(R2\) implementa la capacidad unitaria de cada máquina, garantizando que solo una operación se ejecute a la vez en ella; esto se logra mediante la disyunción de no solape, lo que define implícitamente un orden válido entre operaciones que comparten recurso.
+Finalmente, \(R3\) extiende el modelo clásico incorporando las ventanas de mantenimiento: los intervalos definidos por \(\texttt{MAINT\_START}\), \(\texttt{MAINT\_END}\) y activados por \(\texttt{MAINT\_ACTIVE}\) se tratan como periodos de \textit{no disponibilidad} de la máquina, impidiendo que cualquier operación se solape con ellos.
 
 \subsubsection*{Restricciones redundantes}
-Las restricciones \(R4\)–\(R6\) son lógicamente implicadas por el modelo y sólo refuerzan la propagación.  
-\(R4\) (cota por trabajo) obliga a \(\texttt{END}\) a ser al menos la suma de duraciones de cada trabajo, descartando de inmediato valores imposibles del objetivo.  
-\(R5\) (carga por máquina) exige que \(\texttt{END}\) no sea menor que la carga total procesada por cada máquina.  
-\(R6\) acota todas las variables al horizonte seguro \(H\); en la implementación esta cota se aplica de forma implícita mediante los dominios \([0,H]\) de \(s_{i,m}\) y \(\texttt{END}\).
+Las restricciones \(R4\)–\(R6\) son \textbf{lógicamente implicadas} por las restricciones principales del modelo, es decir, no añaden información nueva sobre el conjunto de soluciones factibles. Su propósito es \textbf{reforzar la propagación} de cotas durante la búsqueda, ayudando al solver a podar ramas del árbol de exploración más temprano.
+\(R4\) (cota por trabajo) obliga a \(\texttt{END}\) a ser al menos la suma de duraciones de cada trabajo individual, descartando de inmediato valores imposibles del objetivo.
+\(R5\) (carga por máquina) exige que \(\texttt{END}\) no sea menor que la carga total de trabajo acumulada en cada máquina.
+\(R6\) acota todas las variables al horizonte seguro \(H\); en la implementación esta cota se aplica de forma implícita mediante los dominios \([0,H]\) definidos para las variables \(s_{i,m}\) y \(\texttt{END}\).
 
 \subsubsection*{Restricciones de simetría}
-Cuando existen trabajos con la misma secuencia de duraciones (\(\texttt{PROC\_TIME}[i,*]=\texttt{PROC\_TIME}[k,*]\)), el problema admite soluciones equivalentes por simple intercambio de etiquetas.  
-La restricción \(R7\) impone un orden léxico sobre los vectores de inicios \((s_{i,1},\dots,s_{i,|M|})\) para esos pares \(i<k\), de modo que se conserve un único representante por clase de permutación.
+Cuando existen trabajos con la misma secuencia de duraciones (\(\texttt{PROC\_TIME}[i,*]=\texttt{PROC\_TIME}[k,*]\)), el problema admite soluciones equivalentes donde solo se intercambian las etiquetas de estos trabajos idénticos.
+La restricción \(R7\) \textbf{rompe esta simetría} imponiendo un orden léxico sobre los vectores de tiempos de inicio \((s_{i,1},\dots,s_{i,|M|})\) para cada par de trabajos idénticos \(i<k\). De este modo, se conserva un único representante canónico por cada clase de permutación equivalente. Dado que los trabajos idénticos son intercambiables sin afectar la optimalidad del makespan, esta restricción \textbf{elimina soluciones estructuralmente idénticas sin perder la solución óptima}, por lo que no es necesario un proceso posterior para recuperar soluciones.

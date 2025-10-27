@@ -1,11 +1,44 @@
-% 6x4, Simetría J5 = J6 + Mantenimiento. Prueba interacción de (3) y (6).
-JOBS = 6;
-TASKS = 4;
+JOBS = 7;
+TASKS = 7;
 
-PROC_TIME = array2d(1..6, 1..4, [ 1, 2, 3, 4, 4, 3, 2, 1, 5, 1, 1, 5, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2 ]);
+PROC_TIME = array2d(1..7, 1..7, [
+    8, 3, 5, 2, 6, 4, 7,  % Job 1
+    5, 6, 2, 7, 3, 8, 4,  % Job 2
+    4, 5, 3, 6, 2, 7, 4,  % Job 3
+    9, 2, 6, 4, 7, 3, 5,  % Job 4
+    6, 7, 4, 8, 5, 2, 9,  % Job 5
+    4, 5, 3, 6, 2, 7, 5,  % Job 6
+    3, 9, 8, 5, 4, 6, 2   % Job 7
+]);
 
-MAX_MAINT_WINDOWS = 1;
+MAX_MAINT_WINDOWS = 2;
 
-MAINT_START = array2d(1..4, 1..1, [ 0, 8, 0, 15 ]);
-MAINT_END = array2d(1..4, 1..1, [ 0, 9, 0, 16 ]);
-MAINT_ACTIVE = array2d(1..4, 1..1, [ false, true, false, true ]);
+MAINT_START = array2d(1..7, 1..2, [ 
+     0,  0,  % Maq 1
+    10, 20,  % Maq 2
+     0,  0,  % Maq 3
+     0,  0,  % Maq 4
+    15,  0,  % Maq 5
+     0,  0,  % Maq 6
+     0,  0   % Maq 7
+]);
+
+MAINT_END = array2d(1..7, 1..2, [ 
+     0,  0,  % Maq 1
+    13, 22,  % Maq 2
+     0,  0,  % Maq 3
+     0,  0,  % Maq 4
+    18,  0,  % Maq 5
+     0,  0,  % Maq 6
+     0,  0   % Maq 7
+]);
+
+MAINT_ACTIVE = array2d(1..7, 1..2, [ 
+    false, false,  % Maq 1
+     true,  true,  % Maq 2
+    false, false,  % Maq 3
+    false, false,  % Maq 4
+     true, false,  % Maq 5
+    false, false,  % Maq 6
+    false, false   % Maq 7
+]);
