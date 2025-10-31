@@ -15,11 +15,11 @@
 \subsubsection*{Constantes derivadas}
 \begin{description}
   \item[\textbf{D1 — \(H\):}] Horizonte superior \emph{seguro}, derivado como
-  \[
-  H \;=\; \sum_{i=1}^{\texttt{JOBS}}\sum_{m=1}^{\texttt{TASKS}} p_{i,m}
-  \;+\; \sum_{m=1}^{\texttt{TASKS}}\sum_{k=1}^{\texttt{MAX\_MAINT\_WINDOWS}}
-  \bigl(b_{m,k}-a_{m,k}\bigr)\,\mathbf{1}\!\left[\texttt{MAINT\_ACTIVE}[m,k]\right].
-  \]
+        \[
+          H \;=\; \sum_{i=1}^{\texttt{JOBS}}\sum_{m=1}^{\texttt{TASKS}} p_{i,m}
+          \;+\; \sum_{m=1}^{\texttt{TASKS}}\sum_{k=1}^{\texttt{MAX\_MAINT\_WINDOWS}}
+          \bigl(b_{m,k}-a_{m,k}\bigr)\,\mathbf{1}\!\left[\texttt{MAINT\_ACTIVE}[m,k]\right].
+        \]
   \item[\textbf{D2 — \(J\):}] Conjunto de trabajos, \(J=\{1,\dots,\texttt{JOBS}\}\).
   \item[\textbf{D3 — \(M\):}] Conjunto de máquinas, \(M=\{1,\dots,\texttt{TASKS}\}\).
 \end{description}
@@ -32,52 +32,52 @@
 
 \subsubsection*{Restricciones principales}
 \begin{description}
-  \item[\textbf{R1 — Precedencias dentro del trabajo:}] Las operaciones de cada trabajo siguen su orden dado.  
-  \[
-  \forall i\in J,\ \forall m\in\{1,\dots,|M|-1\}:\quad
-  s_{i,m}+p_{i,m}\ \le\ s_{i,m+1},
-  \qquad
-  s_{i,|M|}+p_{i,|M|}\ \le\ \texttt{END}.
-  \]
+  \item[\textbf{R1 — Precedencias dentro del trabajo:}] Las operaciones de cada trabajo siguen su orden dado.
+        \[
+          \forall i\in J,\ \forall m\in\{1,\dots,|M|-1\}:\quad
+          s_{i,m}+p_{i,m}\ \le\ s_{i,m+1},
+          \qquad
+          s_{i,|M|}+p_{i,|M|}\ \le\ \texttt{END}.
+        \]
 
-  \item[\textbf{R2 — No solape por máquina:}] En cada máquina, las operaciones se procesan de a una (restricción disyuntiva).  
-  \[
-  \forall m\in M,\ \forall i,k\in J,\ i<k:\quad
-  \big(s_{i,m}+p_{i,m}\le s_{k,m}\big)\ \lor\ \big(s_{k,m}+p_{k,m}\le s_{i,m}\big).
-  \]
+  \item[\textbf{R2 — No solape por máquina:}] En cada máquina, las operaciones se procesan de a una (restricción disyuntiva).
+        \[
+          \forall m\in M,\ \forall i,k\in J,\ i<k:\quad
+          \big(s_{i,m}+p_{i,m}\le s_{k,m}\big)\ \lor\ \big(s_{k,m}+p_{k,m}\le s_{i,m}\big).
+        \]
 
   \item[\textbf{R3 — Bloqueos por mantenimiento:}]
-  Ninguna operación se ejecuta durante una ventana activa de mantenimiento.  
-  \begin{align}
-  & \forall m\in M,\ \forall k\in\{1,\dots,\texttt{MAX\_MAINT\_WINDOWS}\}\ \text{con }\texttt{MAINT\_ACTIVE}[m,k]=\texttt{true},\ \forall i\in J: \nonumber\\
-  & \quad (s_{i,m}+p_{i,m}\le a_{m,k})\ \lor\ (b_{m,k}\le s_{i,m})\;, \nonumber
-  \end{align}
-  donde \(a_{m,k}=\texttt{MAINT\_START}[m,k]\) y \(b_{m,k}=\texttt{MAINT\_END}[m,k]\), con \(0\le a_{m,k}<b_{m,k}\le H\).  
+        Ninguna operación se ejecuta durante una ventana activa de mantenimiento.
+        \begin{align}
+           & \forall m\in M,\ \forall k\in\{1,\dots,\texttt{MAX\_MAINT\_WINDOWS}\}\ \text{con }\texttt{MAINT\_ACTIVE}[m,k]=\texttt{true},\ \forall i\in J: \nonumber \\
+           & \quad (s_{i,m}+p_{i,m}\le a_{m,k})\ \lor\ (b_{m,k}\le s_{i,m})\;, \nonumber
+        \end{align}
+        donde \(a_{m,k}=\texttt{MAINT\_START}[m,k]\) y \(b_{m,k}=\texttt{MAINT\_END}[m,k]\), con \(0\le a_{m,k}<b_{m,k}\le H\).
 \end{description}
 
 \subsubsection*{Restricciones redundantes}
 \begin{description}
-  \item[\textbf{R4 — Cota por trabajo:}] El \emph{makespan} no puede ser menor que la suma de duraciones de cada trabajo.  
-  \[
-  \forall i\in J:\quad \texttt{END}\ \ge\ \sum_{m\in M} p_{i,m}.
-  \]
+  \item[\textbf{R4 — Cota por trabajo:}] El \emph{makespan} no puede ser menor que la suma de duraciones de cada trabajo.
+        \[
+          \forall i\in J:\quad \texttt{END}\ \ge\ \sum_{m\in M} p_{i,m}.
+        \]
 
-  \item[\textbf{R5 — Carga por máquina:}] El \emph{makespan} acota inferiormente la carga total de cada máquina.  
-  \[
-  \forall m\in M:\quad \texttt{END}\ \ge\ \sum_{i\in J} p_{i,m}.
-  \]
+  \item[\textbf{R5 — Carga por máquina:}] El \emph{makespan} acota inferiormente la carga total de cada máquina.
+        \[
+          \forall m\in M:\quad \texttt{END}\ \ge\ \sum_{i\in J} p_{i,m}.
+        \]
 
-  \item[\textbf{R6 — Cota por horizonte:}] Las fechas de inicio y el \emph{makespan} se restringen al horizonte \(H\).  
-  \[
-  \forall i\in J,\ \forall m\in M:\ 0\le s_{i,m}\le H, 
-  \qquad 0\le \texttt{END}\le H.
-  \]
+  \item[\textbf{R6 — Cota por horizonte:}] Las fechas de inicio y el \emph{makespan} se restringen al horizonte \(H\).
+        \[
+          \forall i\in J,\ \forall m\in M:\ 0\le s_{i,m}\le H,
+          \qquad 0\le \texttt{END}\le H.
+        \]
 \end{description}
 
 \subsubsection*{Restricciones de simetría}
 \begin{description}
   \item[\textbf{R7 — Trabajos idénticos:}] Para evitar permutaciones equivalentes, si \(p_{i,*}=p_{k,*}\) y \(i<k\) se impone orden léxico en los inicios:
-  \[
-  (s_{i,1},\dots,s_{i,|M|}) \le_{\text{lex}} (s_{k,1},\dots,s_{k,|M|}).
-  \]
+        \[
+          (s_{i,1},\dots,s_{i,|M|}) \le_{\text{lex}} (s_{k,1},\dots,s_{k,|M|}).
+        \]
 \end{description}

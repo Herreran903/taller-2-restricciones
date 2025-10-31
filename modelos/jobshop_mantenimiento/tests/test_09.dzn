@@ -1,11 +1,34 @@
-% 5x3, Múltiples Ventanas. 2 cortes por M1 y M2. Prueba MAX_MAINT_WINDOWS > 1.
-JOBS = 5;
-TASKS = 3;
+JOBS = 6;
+TASKS = 4;
 
-PROC_TIME = array2d(1..5, 1..3, [ 3, 3, 1, 2, 4, 2, 1, 1, 5, 4, 2, 1, 2, 3, 3 ]);
+PROC_TIME = array2d(1..6, 1..4, [
+    5, 3, 6, 4,  % Job 1
+    2, 7, 5, 3,  % Job 2
+    6, 4, 8, 2,  % Job 3
+    4, 8, 3, 7,  % Job 4
+    7, 2, 6, 5,  % Job 5
+    3, 6, 4, 8   % Job 6
+]);
 
 MAX_MAINT_WINDOWS = 2;
 
-MAINT_START = array2d(1..3, 1..2, [ 5, 15, 10, 20, 0, 0 ]);
-MAINT_END = array2d(1..3, 1..2, [ 7, 17, 12, 22, 0, 0 ]);
-MAINT_ACTIVE = array2d(1..3, 1..2, [ true, true, true, true, false, false ]);
+MAINT_START = array2d(1..4, 1..2, [ 
+     8, 18,  % Maq 1
+     0,  0,  % Maq 2
+    12, 25,  % Maq 3
+     0,  0   % Maq 4
+]);
+
+MAINT_END = array2d(1..4, 1..2, [ 
+    10, 20,  % Maq 1
+     0,  0,  % Maq 2
+    15, 28,  % Maq 3
+     0,  0   % Maq 4
+]);
+
+MAINT_ACTIVE = array2d(1..4, 1..2, [ 
+     true,  true,  % Maq 1
+    false, false,  % Maq 2
+     true,  true,  % Maq 3
+    false, false   % Maq 4
+]);

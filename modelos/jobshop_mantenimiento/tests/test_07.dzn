@@ -1,11 +1,31 @@
-% 5x4, Mantenimiento Crítico. Maint. en todas las máquinas forzando alto impacto.
-JOBS = 5;
-TASKS = 4;
+JOBS = 6;
+TASKS = 3;
 
-PROC_TIME = array2d(1..5, 1..4, [ 4, 2, 3, 1, 1, 5, 2, 3, 3, 1, 4, 2, 2, 4, 1, 3, 5, 3, 2, 1 ]);
+PROC_TIME = array2d(1..6, 1..3, [
+    5, 4, 7,  % Job 1
+    3, 6, 4,  % Job 2
+    8, 2, 5,  % Job 3
+    4, 7, 3,  % Job 4
+    6, 3, 6,  % Job 5
+    7, 5, 2   % Job 6
+]);
 
 MAX_MAINT_WINDOWS = 1;
 
-MAINT_START = array2d(1..4, 1..1, [ 7, 6, 8, 9 ]);
-MAINT_END = array2d(1..4, 1..1, [ 9, 8, 10, 11 ]);
-MAINT_ACTIVE = array2d(1..4, 1..1, [ true, true, true, true ]);
+MAINT_START = array2d(1..3, 1..1, [ 
+    5,  % Maq 1
+    8,  % Maq 2
+    6   % Maq 3
+]);
+
+MAINT_END = array2d(1..3, 1..1, [ 
+    7,   % Maq 1
+    11,  % Maq 2
+    9    % Maq 3
+]);
+
+MAINT_ACTIVE = array2d(1..3, 1..1, [ 
+    true,  % Maq 1
+    true,  % Maq 2
+    true   % Maq 3
+]);

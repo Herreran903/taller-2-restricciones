@@ -5,108 +5,325 @@
 \small
 
 \begin{longtable}{l l l l r r r r}
-\caption{Resultados de pruebas \textbf{con} restricciones redundantes.}\label{tab:pruebas-jobshop_mantenimiento-on}\\
-\toprule
-\textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
-\midrule
-\endhead
-\bottomrule
-\endlastfoot
+    \caption{Resultados de pruebas \textbf{con} restricciones redundantes.}\label{tab:pruebas-jobshop_mantenimiento-on}                                   \\
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endlastfoot
 
-\multicolumn{8}{l}{\textit{Gecode (Estrategia: first\_fail + indomain\_min)}} \\
-\midrule
-test\_01 & gecode & first\_fail & indomain\_min & 9.762 & 11 & 2 & 4 \\
-test\_02 & gecode & first\_fail & indomain\_min & 0.400 & 11 & 3 & 7 \\
-test\_03 & gecode & first\_fail & indomain\_min & 2.130 & 26 & 9 & 9 \\
-test\_04 & gecode & first\_fail & indomain\_min & 0.803 & 21 & 6 & 10 \\
-test\_05 & gecode & first\_fail & indomain\_min & 0.587 & 34 & 9 & 12 \\
-test\_06 & gecode & first\_fail & indomain\_min & 1.237 & 380 & 173 & 16 \\
-test\_07 & gecode & first\_fail & indomain\_min & 1.867 & 429 & 198 & 27 \\
-test\_08 & gecode & first\_fail & indomain\_min & 0.842 & 46 & 10 & 21 \\
-test\_09 & gecode & first\_fail & indomain\_min & 1.012 & 37 & 10 & 16 \\
-test\_10 & gecode & first\_fail & indomain\_min & 16.431 & 7563 & 3768 & 25 \\
-\midrule
-\multicolumn{8}{l}{\textit{Gecode (Estrategia: dom\_w\_deg + indomain\_split)}} \\
-\midrule
-test\_01 & gecode & dom\_w\_deg & indomain\_split & 0.390 & 11 & 3 & 6 \\
-test\_02 & gecode & dom\_w\_deg & indomain\_split & 0.332 & 22 & 5 & 16 \\
-test\_03 & gecode & dom\_w\_deg & indomain\_split & 0.539 & 52 & 15 & 30 \\
-test\_04 & gecode & dom\_w\_deg & indomain\_split & 0.733 & 37 & 8 & 22 \\
-test\_05 & gecode & dom\_w\_deg & indomain\_split & 0.599 & 29 & 6 & 25 \\
-test\_06 & gecode & dom\_w\_deg & indomain\_split & 1.184 & 231 & 91 & 51 \\
-test\_07 & gecode & dom\_w\_deg & indomain\_split & 1.822 & 81 & 25 & 44 \\
-test\_08 & gecode & dom\_w\_deg & indomain\_split & 0.869 & 62 & 16 & 48 \\
-test\_09 & gecode & dom\_w\_deg & indomain\_split & 1.392 & 65 & 19 & 46 \\
-test\_10 & gecode & dom\_w\_deg & indomain\_split & 2.001 & 245 & 104 & 61 \\
-\midrule
-\multicolumn{8}{l}{\textit{Gecode (Estrategia: input\_order + indomain\_min)}} \\
-\midrule
-test\_01 & gecode & input\_order & indomain\_min & 0.239 & 12 & 3 & 5 \\
-test\_02 & gecode & input\_order & indomain\_min & 0.313 & 11 & 3 & 7 \\
-test\_03 & gecode & input\_order & indomain\_min & 0.454 & 39 & 16 & 9 \\
-test\_04 & gecode & input\_order & indomain\_min & 0.415 & 14 & 4 & 10 \\
-test\_05 & gecode & input\_order & indomain\_min & 0.587 & 18 & 5 & 13 \\
-test\_06 & gecode & input\_order & indomain\_min & 2.321 & 794 & 385 & 16 \\
-test\_07 & gecode & input\_order & indomain\_min & 2.761 & 112 & 48 & 21 \\
-test\_08 & gecode & input\_order & indomain\_min & 0.824 & 38 & 10 & 21 \\
-test\_09 & gecode & input\_order & indomain\_min & 1.081 & 94 & 35 & 16 \\
-test\_10 & gecode & input\_order & indomain\_min & 13.913 & 7375 & 3671 & 25 \\
-\midrule
-\multicolumn{8}{l}{\textit{Chuffed (Estrategia: first\_fail + indomain\_min)}} \\
-\midrule
-test\_01 & chuffed & first\_fail & indomain\_min & 1.000 & 13 & 1 & 5 \\
-test\_02 & chuffed & first\_fail & indomain\_min & 0.000 & 13 & 2 & 8 \\
-test\_03 & chuffed & first\_fail & indomain\_min & 0.000 & 27 & 5 & 10 \\
-test\_04 & chuffed & first\_fail & indomain\_min & 5.000 & 24 & 3 & 11 \\
-test\_05 & chuffed & first\_fail & indomain\_min & 1.000 & 37 & 6 & 13 \\
-test\_06 & chuffed & first\_fail & indomain\_min & 1.000 & 131 & 41 & 17 \\
-test\_07 & chuffed & first\_fail & indomain\_min & 2.000 & 114 & 31 & 21 \\
-test\_08 & chuffed & first\_fail & indomain\_min & 1.000 & 53 & 4 & 22 \\
-test\_09 & chuffed & first\_fail & indomain\_min & 1.000 & 58 & 10 & 17 \\
-test\_10 & chuffed & first\_fail & indomain\_min & 3.000 & 206 & 64 & 26 \\
-\midrule
-\multicolumn{8}{l}{\textit{Chuffed (Estrategia: dom\_w\_deg + indomain\_split)}} \\
-\midrule
-test\_01 & chuffed & dom\_w\_deg & indomain\_split & 0.000 & 14 & 1 & 8 \\
-test\_02 & chuffed & dom\_w\_deg & indomain\_split & 0.000 & 23 & 1 & 19 \\
-test\_03 & chuffed & dom\_w\_deg & indomain\_split & 0.000 & 58 & 6 & 32 \\
-test\_04 & chuffed & dom\_w\_deg & indomain\_split & 0.000 & 42 & 1 & 32 \\
-test\_05 & chuffed & dom\_w\_deg & indomain\_split & 0.000 & 50 & 2 & 45 \\
-test\_06 & chuffed & dom\_w\_deg & indomain\_split & 1.000 & 237 & 44 & 75 \\
-test\_07 & chuffed & dom\_w\_deg & indomain\_split & 2.000 & 146 & 8 & 98 \\
-test\_08 & chuffed & dom\_w\_deg & indomain\_split & 1.000 & 114 & 2 & 90 \\
-test\_09 & chuffed & dom\_w\_deg & indomain\_split & 1.000 & 125 & 8 & 62 \\
-test\_10 & chuffed & dom\_w\_deg & indomain\_split & 3.000 & 484 & 62 & 121 \\
-\midrule
-\multicolumn{8}{l}{\textit{Chuffed (Estrategia: input\_order + indomain\_min)}} \\
-\midrule
-test\_01 & chuffed & input\_order & indomain\_min & 0.000 & 12 & 1 & 6 \\
-test\_02 & chuffed & input\_order & indomain\_min & 0.000 & 13 & 2 & 8 \\
-test\_03 & chuffed & input\_order & indomain\_min & 0.000 & 23 & 4 & 10 \\
-test\_04 & chuffed & input\_order & indomain\_min & 0.000 & 18 & 1 & 11 \\
-test\_05 & chuffed & input\_order & indomain\_min & 0.000 & 19 & 2 & 14 \\
-test\_06 & chuffed & input\_order & indomain\_min & 2.000 & 153 & 83 & 17 \\
-test\_07 & chuffed & input\_order & indomain\_min & 1.000 & 50 & 9 & 22 \\
-test\_08 & chuffed & input\_order & indomain\_min & 1.000 & 40 & 4 & 22 \\
-test\_09 & chuffed & input\_order & indomain\_min & 1.000 & 65 & 12 & 17 \\
-test\_10 & chuffed & input\_order & indomain\_min & 3.000 & 244 & 69 & 26 \\
-
+    test\_01         & gecode          & first\_fail       & indomain\_min     & 7.862              & 68             & 20                & 13             \\
+    test\_02         & gecode          & first\_fail       & indomain\_min     & 508.427            & 264886         & 132435            & 28             \\
+    test\_03         & gecode          & first\_fail       & indomain\_min     & 73.898             & 38172          & 19054             & 25             \\
+    test\_04         & gecode          & first\_fail       & indomain\_min     & 21869.202          & 12299388       & 6149673           & 39             \\
+    test\_05         & gecode          & first\_fail       & indomain\_min     & 17700.848          & 8583304        & 4291610           & 40             \\
+    test\_06         & gecode          & first\_fail       & indomain\_min     & 20.877             & 9098           & 4520              & 26             \\
+    test\_07         & gecode          & first\_fail       & indomain\_min     & 22.030             & 9125           & 4554              & 23             \\
+    test\_08         & gecode          & first\_fail       & indomain\_min     & 43979.030          & 12705667       & 6352774           & 39             \\
+    test\_09         & gecode          & first\_fail       & indomain\_min     & 3900.950           & 1514760        & 757354            & 41             \\
+    test\_10         & gecode          & first\_fail       & indomain\_min     & 59937.474          & 20139317       & 10069609          & 52             \\
+    \midrule
+    test\_01         & gecode          & dom\_w\_deg       & indomain\_split   & 0.960              & 113            & 34                & 34             \\
+    test\_02         & gecode          & dom\_w\_deg       & indomain\_split   & 9.232              & 3150           & 1549              & 71             \\
+    test\_03         & gecode          & dom\_w\_deg       & indomain\_split   & 3.973              & 959            & 451               & 69             \\
+    test\_04         & gecode          & dom\_w\_deg       & indomain\_split   & 28.810             & 7536           & 3729              & 88             \\
+    test\_05         & gecode          & dom\_w\_deg       & indomain\_split   & 11.892             & 2338           & 1114              & 119            \\
+    test\_06         & gecode          & dom\_w\_deg       & indomain\_split   & 4.120              & 994            & 455               & 90             \\
+    test\_07         & gecode          & dom\_w\_deg       & indomain\_split   & 4.192              & 1283           & 628               & 68             \\
+    test\_08         & gecode          & dom\_w\_deg       & indomain\_split   & 11.540             & 2173           & 980               & 128            \\
+    test\_09         & gecode          & dom\_w\_deg       & indomain\_split   & 36.976             & 2702           & 1311              & 71             \\
+    test\_10         & gecode          & dom\_w\_deg       & indomain\_split   & 370.060            & 41970          & 20857             & 180            \\
+    \midrule
+    test\_01         & gecode          & input\_order      & indomain\_min     & 0.821              & 200            & 94                & 13             \\
+    test\_02         & gecode          & input\_order      & indomain\_min     & 10240.779          & 8250996        & 4125491           & 25             \\
+    test\_03         & gecode          & input\_order      & indomain\_min     & 281.118            & 210561         & 105269            & 21             \\
+    test\_04         & gecode          & input\_order      & indomain\_min     & 58975.739          & 33415666       & 16707816          & 32             \\
+    test\_05         & gecode          & input\_order      & indomain\_min     & 59935.589          & 35953071       & 17976510          & 39             \\
+    test\_06         & gecode          & input\_order      & indomain\_min     & 856.992            & 535610         & 267795            & 26             \\
+    test\_07         & gecode          & input\_order      & indomain\_min     & 173.459            & 114108         & 57052             & 23             \\
+    test\_08         & gecode          & input\_order      & indomain\_min     & 59939.545          & 37098935       & 18549449          & 36             \\
+    test\_09         & gecode          & input\_order      & indomain\_min     & 10316.886          & 4784339        & 2392147           & 35             \\
+    test\_10         & gecode          & input\_order      & indomain\_min     & 59940.290          & 31019998       & 15509979          & 50             \\
+    \midrule
+    test\_01         & chuffed         & first\_fail       & indomain\_min     & 2.000              & 68             & 12                & 14             \\
+    test\_02         & chuffed         & first\_fail       & indomain\_min     & 8.000              & 537            & 389               & 22             \\
+    test\_03         & chuffed         & first\_fail       & indomain\_min     & 6.000              & 675            & 373               & 22             \\
+    test\_04         & chuffed         & first\_fail       & indomain\_min     & 37.000             & 2863           & 2008              & 26             \\
+    test\_05         & chuffed         & first\_fail       & indomain\_min     & 45.000             & 811            & 409               & 37             \\
+    test\_06         & chuffed         & first\_fail       & indomain\_min     & 7.000              & 454            & 261               & 27             \\
+    test\_07         & chuffed         & first\_fail       & indomain\_min     & 7.000              & 636            & 494               & 19             \\
+    test\_08         & chuffed         & first\_fail       & indomain\_min     & 37.000             & 2139           & 1523              & 37             \\
+    test\_09         & chuffed         & first\_fail       & indomain\_min     & 25.000             & 1794           & 1344              & 25             \\
+    test\_10         & chuffed         & first\_fail       & indomain\_min     & 28609.000          & 736859         & 595199            & 50             \\
+    \midrule
+    test\_01         & chuffed         & dom\_w\_deg       & indomain\_split   & 1.000              & 114            & 8                 & 53             \\
+    test\_02         & chuffed         & dom\_w\_deg       & indomain\_split   & 4.000              & 945            & 150               & 117            \\
+    test\_03         & chuffed         & dom\_w\_deg       & indomain\_split   & 5.000              & 974            & 212               & 121            \\
+    test\_04         & chuffed         & dom\_w\_deg       & indomain\_split   & 23.000             & 3269           & 1065              & 145            \\
+    test\_05         & chuffed         & dom\_w\_deg       & indomain\_split   & 188.000            & 14992          & 7081              & 252            \\
+    test\_06         & chuffed         & dom\_w\_deg       & indomain\_split   & 16.000             & 2717           & 910               & 152            \\
+    test\_07         & chuffed         & dom\_w\_deg       & indomain\_split   & 7.000              & 1267           & 505               & 100            \\
+    test\_08         & chuffed         & dom\_w\_deg       & indomain\_split   & 39.000             & 5237           & 1663              & 247            \\
+    test\_09         & chuffed         & dom\_w\_deg       & indomain\_split   & 48.000             & 6423           & 2433              & 144            \\
+    test\_10         & chuffed         & dom\_w\_deg       & indomain\_split   & 12236.000          & 471285         & 221818            & 345            \\
+    \midrule
+    test\_01         & chuffed         & input\_order      & indomain\_min     & 1.000              & 53             & 16                & 14             \\
+    test\_02         & chuffed         & input\_order      & indomain\_min     & 6.000              & 617            & 272               & 22             \\
+    test\_03         & chuffed         & input\_order      & indomain\_min     & 5.000              & 442            & 248               & 22             \\
+    test\_04         & chuffed         & input\_order      & indomain\_min     & 47.000             & 3435           & 2735              & 26             \\
+    test\_05         & chuffed         & input\_order      & indomain\_min     & 273.000            & 10926          & 9503              & 38             \\
+    test\_06         & chuffed         & input\_order      & indomain\_min     & 25.000             & 2088           & 1657              & 27             \\
+    test\_07         & chuffed         & input\_order      & indomain\_min     & 8.000              & 737            & 672               & 20             \\
+    test\_08         & chuffed         & input\_order      & indomain\_min     & 28.000             & 1610           & 1189              & 37             \\
+    test\_09         & chuffed         & input\_order      & indomain\_min     & 78.000             & 4925           & 4365              & 26             \\
+    test\_10         & chuffed         & input\_order      & indomain\_min     & 16350.000          & 362590         & 332479            & 51             \\
 \end{longtable}
 
 \begin{longtable}{l l l l r r r r}
-\caption{Resultados de pruebas \textbf{sin} restricciones redundantes.}\label{tab:pruebas-jobshop_mantenimiento-off}\\
-\toprule
-\textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
-\midrule
-\endhead
-\bottomrule
-\endlastfoot
+    \caption{Resultados de pruebas \textbf{sin} restricciones redundantes.}\label{tab:pruebas-jobshop_mantenimiento-off}                                  \\
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endlastfoot
+
+    test\_01         & gecode          & first\_fail       & indomain\_min     & 10.203             & 68             & 20                & 13             \\
+    test\_02         & gecode          & first\_fail       & indomain\_min     & 499.978            & 264817         & 132389            & 28             \\
+    test\_03         & gecode          & first\_fail       & indomain\_min     & 62.441             & 24282          & 12104             & 25             \\
+    test\_04         & gecode          & first\_fail       & indomain\_min     & 17341.491          & 8810676        & 4405319           & 39             \\
+    test\_05         & gecode          & first\_fail       & indomain\_min     & 59931.770          & 50739812       & 25369861          & 49             \\
+    test\_06         & gecode          & first\_fail       & indomain\_min     & 24.156             & 11998          & 5983              & 26             \\
+    test\_07         & gecode          & first\_fail       & indomain\_min     & 50.264             & 23345          & 11649             & 23             \\
+    test\_08         & gecode          & first\_fail       & indomain\_min     & 47879.649          & 14960880       & 7480383           & 39             \\
+    test\_09         & gecode          & first\_fail       & indomain\_min     & 9620.749           & 6094237        & 3047083           & 41             \\
+    test\_10         & gecode          & first\_fail       & indomain\_min     & 59934.424          & 27947665       & 13973774          & 51             \\
+    \midrule
+    test\_01         & gecode          & dom\_w\_deg       & indomain\_split   & 0.912              & 112            & 33                & 36             \\
+    test\_02         & gecode          & dom\_w\_deg       & indomain\_split   & 5.504              & 1634           & 774               & 71             \\
+    test\_03         & gecode          & dom\_w\_deg       & indomain\_split   & 1.708              & 334            & 133               & 72             \\
+    test\_04         & gecode          & dom\_w\_deg       & indomain\_split   & 36.409             & 9649           & 4793              & 77             \\
+    test\_05         & gecode          & dom\_w\_deg       & indomain\_split   & 10.264             & 1880           & 838               & 141            \\
+    test\_06         & gecode          & dom\_w\_deg       & indomain\_split   & 5.299              & 1340           & 593               & 93             \\
+    test\_07         & gecode          & dom\_w\_deg       & indomain\_split   & 11.445             & 3549           & 1729              & 75             \\
+    test\_08         & gecode          & dom\_w\_deg       & indomain\_split   & 13.378             & 2937           & 1287              & 133            \\
+    test\_09         & gecode          & dom\_w\_deg       & indomain\_split   & 12.210             & 3567           & 1688              & 96             \\
+    test\_10         & gecode          & dom\_w\_deg       & indomain\_split   & 304.671            & 42287          & 20950             & 182            \\
+    \midrule
+    test\_01         & gecode          & input\_order      & indomain\_min     & 0.833              & 200            & 94                & 13             \\
+    test\_02         & gecode          & input\_order      & indomain\_min     & 10051.899          & 8250996        & 4125491           & 25             \\
+    test\_03         & gecode          & input\_order      & indomain\_min     & 276.237            & 210561         & 105269            & 21             \\
+    test\_04         & gecode          & input\_order      & indomain\_min     & 58520.001          & 33415666       & 16707816          & 32             \\
+    test\_05         & gecode          & input\_order      & indomain\_min     & 59938.719          & 36319978       & 18159963          & 39             \\
+    test\_06         & gecode          & input\_order      & indomain\_min     & 897.716            & 535610         & 267795            & 26             \\
+    test\_07         & gecode          & input\_order      & indomain\_min     & 170.944            & 114108         & 57052             & 23             \\
+    test\_08         & gecode          & input\_order      & indomain\_min     & 59933.128          & 37142176       & 18571070          & 36             \\
+    test\_09         & gecode          & input\_order      & indomain\_min     & 10471.427          & 4784339        & 2392147           & 35             \\
+    test\_10         & gecode          & input\_order      & indomain\_min     & 59936.365          & 30298504       & 15149232          & 50             \\
+    \midrule
+    test\_01         & chuffed         & first\_fail       & indomain\_min     & 1.000              & 68             & 12                & 14             \\
+    test\_02         & chuffed         & first\_fail       & indomain\_min     & 7.000              & 537            & 389               & 22             \\
+    test\_03         & chuffed         & first\_fail       & indomain\_min     & 6.000              & 697            & 373               & 22             \\
+    test\_04         & chuffed         & first\_fail       & indomain\_min     & 36.000             & 2889           & 2008              & 26             \\
+    test\_05         & chuffed         & first\_fail       & indomain\_min     & 16.000             & 851            & 409               & 38             \\
+    test\_06         & chuffed         & first\_fail       & indomain\_min     & 6.000              & 423            & 261               & 27             \\
+    test\_07         & chuffed         & first\_fail       & indomain\_min     & 7.000              & 637            & 494               & 20             \\
+    test\_08         & chuffed         & first\_fail       & indomain\_min     & 42.000             & 2069           & 1523              & 37             \\
+    test\_09         & chuffed         & first\_fail       & indomain\_min     & 25.000             & 1817           & 1344              & 25             \\
+    test\_10         & chuffed         & first\_fail       & indomain\_min     & 28238.000          & 736910         & 595199            & 51             \\
+    \midrule
+    test\_01         & chuffed         & dom\_w\_deg       & indomain\_split   & 1.000              & 117            & 8                 & 56             \\
+    test\_02         & chuffed         & dom\_w\_deg       & indomain\_split   & 4.000              & 949            & 150               & 121            \\
+    test\_03         & chuffed         & dom\_w\_deg       & indomain\_split   & 5.000              & 974            & 212               & 121            \\
+    test\_04         & chuffed         & dom\_w\_deg       & indomain\_split   & 21.000             & 3272           & 1065              & 148            \\
+    test\_05         & chuffed         & dom\_w\_deg       & indomain\_split   & 190.000            & 14992          & 7081              & 252            \\
+    test\_06         & chuffed         & dom\_w\_deg       & indomain\_split   & 15.000             & 2717           & 910               & 152            \\
+    test\_07         & chuffed         & dom\_w\_deg       & indomain\_split   & 7.000              & 1270           & 505               & 103            \\
+    test\_08         & chuffed         & dom\_w\_deg       & indomain\_split   & 38.000             & 5237           & 1663              & 247            \\
+    test\_09         & chuffed         & dom\_w\_deg       & indomain\_split   & 47.000             & 6423           & 2433              & 144            \\
+    test\_10         & chuffed         & dom\_w\_deg       & indomain\_split   & 12393.000          & 471285         & 221818            & 345            \\
+    \midrule
+    test\_01         & chuffed         & input\_order      & indomain\_min     & 1.000              & 53             & 16                & 14             \\
+    test\_02         & chuffed         & input\_order      & indomain\_min     & 5.000              & 617            & 272               & 22             \\
+    test\_03         & chuffed         & input\_order      & indomain\_min     & 5.000              & 442            & 248               & 22             \\
+    test\_04         & chuffed         & input\_order      & indomain\_min     & 45.000             & 3435           & 2735              & 26             \\
+    test\_05         & chuffed         & input\_order      & indomain\_min     & 252.000            & 10926          & 9503              & 38             \\
+    test\_06         & chuffed         & input\_order      & indomain\_min     & 25.000             & 2088           & 1657              & 27             \\
+    test\_07         & chuffed         & input\_order      & indomain\_min     & 8.000              & 737            & 672               & 20             \\
+    test\_08         & chuffed         & input\_order      & indomain\_min     & 29.000             & 1610           & 1189              & 37             \\
+    test\_09         & chuffed         & input\_order      & indomain\_min     & 77.000             & 4925           & 4365              & 26             \\
+    test\_10         & chuffed         & input\_order      & indomain\_min     & 16677.000          & 362590         & 332479            & 51             \\
+\end{longtable}
+
+\begin{longtable}{l l l l r r r r}
+    \caption{Resultados de pruebas \textbf{con} restricciones redundantes y \textbf{con} simetría.}\label{tab:pruebas-jobshop_mantenimiento-on-on}        \\
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endlastfoot
+
+    test\_01         & gecode          & first\_fail       & indomain\_min     & 7.862              & 68             & 20                & 13             \\
+    test\_02         & gecode          & first\_fail       & indomain\_min     & 508.427            & 264886         & 132435            & 28             \\
+    \midrule
+    test\_01         & gecode          & dom\_w\_deg       & indomain\_split   & 0.960              & 113            & 34                & 34             \\
+    test\_02         & gecode          & dom\_w\_deg       & indomain\_split   & 9.232              & 3150           & 1549              & 71             \\
+    \midrule
+    test\_01         & gecode          & input\_order      & indomain\_min     & 0.821              & 200            & 94                & 13             \\
+    test\_02         & gecode          & input\_order      & indomain\_min     & 10240.779          & 8250996        & 4125491           & 25             \\
+    \midrule
+    test\_01         & chuffed         & first\_fail       & indomain\_min     & 2.000              & 68             & 12                & 14             \\
+    test\_02         & chuffed         & first\_fail       & indomain\_min     & 8.000              & 537            & 389               & 22             \\
+    \midrule
+    test\_01         & chuffed         & dom\_w\_deg       & indomain\_split   & 1.000              & 114            & 8                 & 53             \\
+    test\_02         & chuffed         & dom\_w\_deg       & indomain\_split   & 4.000              & 945            & 150               & 117            \\
+    \midrule
+    test\_01         & chuffed         & input\_order      & indomain\_min     & 1.000              & 53             & 16                & 14             \\
+    test\_02         & chuffed         & input\_order      & indomain\_min     & 6.000              & 617            & 272               & 22             \\
+\end{longtable}
+
+\begin{longtable}{l l l l r r r r}
+    \caption{Resultados de pruebas \textbf{con} restricciones redundantes y \textbf{sin} simetría.}\label{tab:pruebas-jobshop_mantenimiento-on-off-1}     \\
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endlastfoot
+
+    test\_01         & gecode          & first\_fail       & indomain\_min     & 5.143              & 171            & 73                & 13             \\
+    test\_02         & gecode          & first\_fail       & indomain\_min     & 1251.807           & 641482         & 320733            & 28             \\
+    \midrule
+    test\_01         & gecode          & dom\_w\_deg       & indomain\_split   & 0.822              & 153            & 54                & 34             \\
+    test\_02         & gecode          & dom\_w\_deg       & indomain\_split   & 9.131              & 3911           & 1934              & 65             \\
+    \midrule
+    test\_01         & gecode          & input\_order      & indomain\_min     & 1.239              & 360            & 174               & 13             \\
+    test\_02         & gecode          & input\_order      & indomain\_min     & 17282.710          & 15001952       & 7500969           & 26             \\
+    \midrule
+    test\_01         & chuffed         & first\_fail       & indomain\_min     & 3.000              & 76             & 19                & 14             \\
+    test\_02         & chuffed         & first\_fail       & indomain\_min     & 35.000             & 3546           & 2824              & 22             \\
+    \midrule
+    test\_01         & chuffed         & dom\_w\_deg       & indomain\_split   & 1.000              & 135            & 17                & 53             \\
+    test\_02         & chuffed         & dom\_w\_deg       & indomain\_split   & 10.000             & 3069           & 784               & 117            \\
+    \midrule
+    \multicolumn{8}{l}{\textit{Chuffed (Estrategia: input\_order + indomain\_min)}}                                                                       \\
+    \midrule
+    test\_01         & chuffed         & input\_order      & indomain\_min     & 1.000              & 57             & 20                & 14             \\
+    test\_02         & chuffed         & input\_order      & indomain\_min     & 16.000             & 2050           & 1261              & 22             \\
+\end{longtable}
+
+\begin{longtable}{l l l l r r r r}
+    \caption{Resultados de pruebas \textbf{con} restricciones redundantes y \textbf{sin} simetría.}\label{tab:pruebas-jobshop_mantenimiento-on-off}       \\
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endlastfoot
+
+    test\_01         & gecode          & first\_fail       & indomain\_min     & 5.143              & 171            & 73                & 13             \\
+    test\_02         & gecode          & first\_fail       & indomain\_min     & 1251.807           & 641482         & 320733            & 28             \\
+    \midrule
+    test\_01         & gecode          & dom\_w\_deg       & indomain\_split   & 0.822              & 153            & 54                & 34             \\
+    test\_02         & gecode          & dom\_w\_deg       & indomain\_split   & 9.131              & 3911           & 1934              & 65             \\
+    \midrule
+    test\_01         & gecode          & input\_order      & indomain\_min     & 1.239              & 360            & 174               & 13             \\
+    test\_02         & gecode          & input\_order      & indomain\_min     & 17282.710          & 15001952       & 7500969           & 26             \\
+    \midrule
+    test\_01         & chuffed         & first\_fail       & indomain\_min     & 3.000              & 76             & 19                & 14             \\
+    test\_02         & chuffed         & first\_fail       & indomain\_min     & 35.000             & 3546           & 2824              & 22             \\
+    \midrule
+    test\_01         & chuffed         & dom\_w\_deg       & indomain\_split   & 1.000              & 135            & 17                & 53             \\
+    test\_02         & chuffed         & dom\_w\_deg       & indomain\_split   & 10.000             & 3069           & 784               & 117            \\
+    \midrule
+    test\_01         & chuffed         & input\_order      & indomain\_min     & 1.000              & 57             & 20                & 14             \\
+    test\_02         & chuffed         & input\_order      & indomain\_min     & 16.000             & 2050           & 1261              & 22             \\
+\end{longtable}
+
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{l l l l r r r r r}
+    \caption{Resultados de pruebas \textbf{con} redundancia y \textbf{con} simetría (todas las soluciones).}\label{tab:pruebas-jobshop_mantenimiento-on-on-all}                \\
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} & \textbf{Solutions} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} & \textbf{Solutions} \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endlastfoot
+
+    test\_01         & gecode          & first\_fail       & indomain\_min     & 59921.041          & 3127246        & 0                 & 25             & 1563617            \\
+    test\_02         & gecode          & first\_fail       & indomain\_min     & 59930.036          & 2700044        & 0                 & 32             & 1350012            \\
+    \midrule
+    test\_01         & gecode          & dom\_w\_deg       & indomain\_split   & 59931.679          & 3151727        & 0                 & 45             & 1575852            \\
+    test\_02         & gecode          & dom\_w\_deg       & indomain\_split   & 59933.849          & 2730619        & 0                 & 82             & 1365278            \\
+    \midrule
+    test\_01         & gecode          & input\_order      & indomain\_min     & 59937.490          & 3173156        & 0                 & 25             & 1586572            \\
+    test\_02         & gecode          & input\_order      & indomain\_min     & 59937.140          & 2754654        & 0                 & 32             & 1377317            \\
+    \midrule
+    test\_01         & chuffed         & first\_fail       & indomain\_min     & 59934.000          & 1517948        & 1517936           & 13             & 1517936            \\
+    test\_02         & chuffed         & first\_fail       & indomain\_min     & 59933.000          & 1294586        & 1294565           & 21             & 1294565            \\
+    \midrule
+    test\_01         & chuffed         & dom\_w\_deg       & indomain\_split   & 59926.000          & 1905356        & 1567323           & 52             & 1567323            \\
+    test\_02         & chuffed         & dom\_w\_deg       & indomain\_split   & 59938.000          & 1547960        & 1351214           & 116            & 1351214            \\
+    \midrule
+    test\_01         & chuffed         & input\_order      & indomain\_min     & 59934.000          & 1553352        & 1553340           & 13             & 1553340            \\
+    test\_02         & chuffed         & input\_order      & indomain\_min     & 59936.000          & 1361902        & 1361881           & 21             & 1361881            \\
+\end{longtable}
+
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{l l l l r r r r r}
+    \caption{Resultados de pruebas \textbf{con} redundancia y \textbf{sin} simetría (todas las soluciones).}\label{tab:pruebas-jobshop_mantenimiento-on-off-all}               \\
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} & \textbf{Solutions} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} & \textbf{Solutions} \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endlastfoot
+
+    test\_01         & gecode          & first\_fail       & indomain\_min     & 59942.958          & 3225524        & 0                 & 25             & 1612756            \\
+    test\_02         & gecode          & first\_fail       & indomain\_min     & 59937.814          & 2766214        & 0                 & 32             & 1383097            \\
+    \midrule
+    test\_01         & gecode          & dom\_w\_deg       & indomain\_split   & 59939.585          & 3256656        & 0                 & 45             & 1628314            \\
+    test\_02         & gecode          & dom\_w\_deg       & indomain\_split   & 59936.894          & 2852672        & 0                 & 76             & 1426307            \\
+    \midrule
+    test\_01         & gecode          & input\_order      & indomain\_min     & 59939.783          & 3251452        & 0                 & 25             & 1625720            \\
+    test\_02         & gecode          & input\_order      & indomain\_min     & 59933.915          & 2774174        & 0                 & 32             & 1387077            \\
+    \midrule
+    test\_01         & chuffed         & first\_fail       & indomain\_min     & 59932.000          & 1566132        & 1566122           & 13             & 1566122            \\
+    test\_02         & chuffed         & first\_fail       & indomain\_min     & 59937.000          & 1332201        & 1332180           & 21             & 1332180            \\
+    \midrule
+    test\_01         & chuffed         & dom\_w\_deg       & indomain\_split   & 59933.000          & 1931617        & 1589249           & 52             & 1589249            \\
+    test\_02         & chuffed         & dom\_w\_deg       & indomain\_split   & 59936.000          & 1592857        & 1390351           & 116            & 1390351            \\
+    \midrule
+    test\_01         & chuffed         & input\_order      & indomain\_min     & 59936.000          & 1588141        & 1588128           & 13             & 1588128            \\
+    test\_02         & chuffed         & input\_order      & indomain\_min     & 59924.000          & 1412380        & 1412359           & 21             & 1412359            \\
 \end{longtable}

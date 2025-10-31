@@ -61,6 +61,21 @@ env/
 *.ozn
 *.jsonl
 
+# Ignora COMPLETAMENTE todas las carpetas que empiezan con "results_"
+# dentro de CUALQUIER subdirectorio de "modelos"
+modelos/**/results_*/
+
+# EXCEPCIÓN: Si quieres mantener los archivos results.csv DENTRO de
+# CADA una de esas carpetas results_*, DESCOMENTA la siguiente línea.
+# Si NO los quieres guardar en git (recomendado si generas un resumen final), déjala comentada.
+# !modelos/**/results_*/results.csv
+
+# Mantiene los archivos .mzn principales del modelo
+!modelos/**/*.mzn
+
+# Mantiene las instancias de prueba .dzn DENTRO de las carpetas /tests/
+!modelos/**/tests/*.dzn
+
 # Resultados generados por el runner
 modelos/**/results/artifacts/**
 modelos/**/results/flat/**
