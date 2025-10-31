@@ -1,3 +1,10 @@
+% --------------------------------------------------------------
+% JOBSHOP_TARDANZA.MZN — JSSP con ventanas de mantenimiento por máquina
+% - Objetivo: minimizar el makespan (END).
+% - Salida: END y matriz de tiempos de inicio S[I,J].
+% --------------------------------------------------------------
+
+% MODEL_ID: jobshop
 int: jobs;                                    % no of jobs
 set of int: JOB = 1..jobs;
 int: tasks;                                   % no of tasks per job
@@ -39,6 +46,10 @@ constraint forall(j in JOB)(
   T[j] >= end_job[j] - due_dates[j] /\ T[j] >= 0
 );
 
+% --- Branch vars (aplanamos la matriz s a 1D) ---
+array [1..jobs*tasks] of var 0..total: BRANCH_VARS =
+  [ s[i,j] | i in JOB, j in TASK ];
+  
 w = sum(j in JOB)( weights[j] * T[j]);
 solve minimize w;
 
