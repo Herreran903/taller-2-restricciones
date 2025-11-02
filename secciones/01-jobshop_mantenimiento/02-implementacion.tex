@@ -18,3 +18,11 @@ Las restricciones \(R4\)–\(R6\) son \textbf{lógicamente implicadas} por las r
 \subsubsection*{Restricciones de simetría}
 Cuando existen trabajos con la misma secuencia de duraciones (\(\texttt{PROC\_TIME}[i,*]=\texttt{PROC\_TIME}[k,*]\)), el problema admite soluciones equivalentes donde solo se intercambian las etiquetas de estos trabajos idénticos.
 La restricción \(R7\) \textbf{rompe esta simetría} imponiendo un orden léxico sobre los vectores de tiempos de inicio \((s_{i,1},\dots,s_{i,|M|})\) para cada par de trabajos idénticos \(i<k\). De este modo, se conserva un único representante canónico por cada clase de permutación equivalente. Dado que los trabajos idénticos son intercambiables sin afectar la optimalidad del makespan, esta restricción \textbf{elimina soluciones estructuralmente idénticas sin perder la solución óptima}, por lo que no es necesario un proceso posterior para recuperar soluciones.
+
+\subsubsection*{Estrategias de búsqueda exploradas}
+Se experimentó con distintas \textbf{estrategias de búsqueda}, variando tanto la heurística de selección de variables como la de asignación de valores. Las estrategias consideradas fueron:
+\begin{itemize}
+    \item \texttt{first\_fail + indomain\_min}: selecciona la variable con el dominio más pequeño y le asigna el valor mínimo posible.
+    \item \texttt{dom\_w\_deg + indomain\_split}: prioriza variables con alto peso de restricciones insatisfechas (mayor \textit{grado ponderado}) y divide su dominio, aprovechando información sobre conflictos acumulados.
+    \item \texttt{input\_order + indomain\_min}: asigna variables en el orden en que fueron declaradas, con el valor mínimo.
+\end{itemize}
