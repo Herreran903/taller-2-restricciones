@@ -1,13 +1,107 @@
 % !TEX root = ../../main.tex
 
-\subsection{Modelo}\label{sec:01-jobshop_tardanza-modelo}
+\subsection{Modelo}\label{sec:jobshop_tardanza-modelo}
 
 \subsubsection*{Parámetros}
+\begin{description}
+  \item[\textbf{P1 — \texttt{jobs}:}] Número de trabajos.
+  \item[\textbf{P2 — \texttt{tasks}:}] Número de tareas (máquinas en secuencia común).
+  \item[\textbf{P3 — \texttt{d}:}] Matriz de duraciones $d[i,j]$ de tamaño $\texttt{jobs}\times\texttt{tasks}$.
+  \item[\textbf{P4 — \texttt{weights}:}] Pesos por trabajo, $\texttt{weights}[i] = w_i$.
+  \item[\textbf{P5 — \texttt{due\_dates}:}] \emph{Due dates} por trabajo, $\texttt{due\_dates}[i] = d^{\text{due}}_i$.
+\end{description}
+
+\subsubsection*{Constantes derivadas}
+\begin{description}
+  \item[\textbf{D1 — \texttt{total}:}] Horizonte superior seguro, $\displaystyle \texttt{total}=\sum_{i=1}^{\texttt{jobs}}\sum_{j=1}^{\texttt{tasks}} d[i,j]$.
+  \item[\textbf{D2 — \texttt{JOB}:}] Conjunto de trabajos, $\texttt{JOB}=\{1,\dots,\texttt{jobs}\}$.
+  \item[\textbf{D3 — \texttt{TASK}:}] Conjunto de tareas, $\texttt{TASK}=\{1,\dots,\texttt{tasks}\}$.
+\end{description}
 
 \subsubsection*{Variables}
+\begin{description}
+  \item[\textbf{V1 — $s[i,j]$:}] Inicio de la tarea $j$ del trabajo $i$, con $s[i,j]\in[0,\texttt{total}]$.
+  \item[\textbf{V2 — $\texttt{end\_job}[i]$:}] Fin del trabajo $i$, $\texttt{end\_job}[i]=s[i,\texttt{tasks}]+d[i,\texttt{tasks}]$.
+  \item[\textbf{V3 — $T[i]$:}] Tardanza del trabajo $i$, $T[i]\in[0,\texttt{total}]$.
+  \item[\textbf{V4 — \texttt{end}:}] Makespan, $\texttt{end}\in[0,\texttt{total}]$.
+  \item[\textbf{V5 — \texttt{w}:}] Tardanza ponderada total (objetivo), $\texttt{w}\ge 0$.
+\end{description}
+
+\subsubsection*{Predicados}
+\begin{description}
+  \item[\textbf{no\_overlap:}] Disyunción de no solape entre dos operaciones en la misma máquina:
+  \[
+    \texttt{no\_overlap}(s_1,d_1,s_2,d_2)\;\equiv\; (s_1+d_1\le s_2)\ \lor\ (s_2+d_2\le s_1).
+  \]
+  \item[\textbf{identical\_jobs:}] Identidad estructural entre dos trabajos $i,k$:
+  \[
+    \texttt{identical\_jobs}(i,k)\;\equiv\; w_i=w_k,\ d^{\text{due}}_i=d^{\text{due}}_k,\ \forall j\in \texttt{TASK}:\ d[i,j]=d[k,j].
+  \]
+\end{description}
 
 \subsubsection*{Restricciones principales}
+\begin{description}
+  \item[\textbf{R1 — Precedencias por trabajo:}]
+  \[
+    \forall i\in\texttt{JOB},\ \forall j\in\{1,\dots,\texttt{tasks}-1\}:\quad
+    s[i,j]+d[i,j]\ \le\ s[i,j+1],
+  \]
+  y además $s[i,\texttt{tasks}]+d[i,\texttt{tasks}]\le \texttt{end}$.
+  \item[\textbf{R2 — No solape por máquina (columna $j$):}]
+  \[
+    \forall j\in\texttt{TASK},\ \forall i<k\in\texttt{JOB}:\quad
+    \texttt{no\_overlap}\big(s[i,j],d[i,j],\ s[k,j],d[k,j]\big).
+  \]
+  \item[\textbf{R3 — Definición de fin y tardanza:}]
+  \[
+    \texttt{end\_job}[i]=s[i,\texttt{tasks}]+d[i,\texttt{tasks}],\qquad
+    T[i]\ge \texttt{end\_job}[i]-\texttt{due\_dates}[i],\quad T[i]\ge 0.
+  \]
+  \item[\textbf{R4 — Función objetivo (acumulación):}]
+  \[
+    \texttt{w}=\sum_{i\in\texttt{JOB}}\texttt{weights}[i]\cdot T[i]\qquad
+    \text{(se minimiza $\texttt{w}$)}.
+  \]
+\end{description}
 
 \subsubsection*{Restricciones redundantes}
+\begin{description}
+  \item[\textbf{R5 — Ventanas EST/LST por operación:}] Para cada operación se acota su inicio entre el más temprano posible (por precedencias) y el más tardío que aún deja completar lo que resta:
+  \[
+    \text{EST}[i,j]=\sum_{t=1}^{j-1} d[i,t],\qquad
+    \text{LST}[i,j]=\texttt{total}-\sum_{t=j}^{\texttt{tasks}} d[i,t],
+  \]
+  \[
+    \forall i\in\texttt{JOB},\ \forall j\in\texttt{TASK}:\quad
+    \text{EST}[i,j]\ \le\ s[i,j]\ \le\ \text{LST}[i,j].
+  \]
+
+  \item[\textbf{R6 — Carga por máquina:}] El \emph{makespan} no puede ser menor que la carga total procesada por cada máquina (columna $j$):
+  \[
+    \forall j\in\texttt{TASK}:\quad
+    \texttt{end}\ \ge\ \sum_{i\in\texttt{JOB}} d[i,j].
+  \]
+
+  \item[\textbf{R7 — Trabajo más largo:}] El \emph{makespan} debe cubrir, al menos, la duración total de cada trabajo y acotar superiormente sus finales:
+  \[
+    \forall i\in\texttt{JOB}:\quad
+    \texttt{end}\ \ge\ \sum_{j\in\texttt{TASK}} d[i,j],\qquad
+    \texttt{end}\ \ge\ \texttt{end\_job}[i].
+  \]
+\end{description}
 
 \subsubsection*{Restricciones de simetría}
+\begin{description}
+  \item[\textbf{R8 — Trabajos idénticos (orden lexicográfico):}] Si dos trabajos son idénticos en duraciones, peso y due date, se impone un orden para evitar permutaciones espejo. Sea
+  \(
+    \texttt{identical\_jobs}(i,k)\equiv
+    \texttt{weights}[i]=\texttt{weights}[k],\
+    \texttt{due\_dates}[i]=\texttt{due\_dates}[k],\
+    \forall j:\ d[i,j]=d[k,j].
+  \)
+  Entonces, para $i<k$:
+  \[
+    \texttt{identical\_jobs}(i,k)\ \Rightarrow\
+    (\,s[i,1],\dots,s[i,\texttt{tasks}]\,)\ \le_{\mathrm{lex}}\ (\,s[k,1],\dots,s[k,\texttt{tasks}]\,),
+  \]
+\end{description}
