@@ -8,11 +8,11 @@ Las variables \(s[i,j]\), \(\texttt{end\_job}[i]\) y \(\texttt{end}\) representa
 La restricción \(R1\) asegura la precedencia interna de cada trabajo (la tarea \(j\) debe finalizar antes de que comience \(j{+}1\)) y acota su última operación por \(\texttt{end}\).
 La restricción \(R2\) modela la capacidad unitaria por “máquina” (columna \(j\)): dos operaciones que comparten recurso no pueden solaparse, implementado con una disyunción \texttt{no\_overlap}.
 La restricción \(R3\) define los tiempos de finalización de cada trabajo, y \(R4\) define la tardanza \(T[i]\) mediante una linealización estándar \(T[i]\ge \texttt{end\_job}[i]-\texttt{due\_dates}[i],\ T[i]\ge 0\).
-La función objetivo acumula la \textbf{tardanza ponderada} \( \texttt{w}=\sum_i \texttt{weights}[i]\cdot T[i] \) y se minimiza, priorizando (vía pesos) los trabajos cuya demora es más costosa.
+La función objetivo acumula la \textbf{tardanza ponderada} \( \texttt{w}=\sum_i \texttt{weights}[i]\cdot T[i] \) y se minimiza, priorizando los trabajos cuya demora es más costosa.
 
 \subsubsection*{Restricciones redundantes}
 Las restricciones \(R5\)–\(R7\) están \textbf{lógicamente implicadas} por el núcleo del modelo y no alteran el conjunto de soluciones; su propósito es \textbf{fortalecer la propagación} y reducir el espacio de búsqueda.
-\(R5\) (ventanas \(\text{EST}/\text{LST}\)) acota cada \(s[i,j]\) entre el inicio más temprano inducido por precedencias y el más tardío que aún permite completar el resto del trabajo, recortando dominios desde el inicio.
+\(R5\) acota cada \(s[i,j]\) entre el inicio más temprano inducido por precedencias y el más tardío que aún permite completar el resto del trabajo, recortando dominios desde el inicio.
 \(R6\) (carga por máquina) fuerza \(\texttt{end}\) a ser al menos la suma de duraciones en cada columna \(j\), aportando una cota inferior global del makespan.
 \(R7\) (trabajo más largo) exige que \(\texttt{end}\) cubra, para todo trabajo, la suma de sus duraciones y respete \(\texttt{end}\ge \texttt{end\_job}[i]\), empujando cotas tempranas sobre el horizonte efectivo.
 
@@ -27,5 +27,4 @@ Se evaluaron distintas \textbf{heurísticas} de selección de variables y valore
   \item \texttt{dom\_w\_deg + indomain\_min} / \texttt{dom\_w\_deg + indomain\_split}: prioriza variables con mayor grado ponderado de conflictos; con \texttt{split} divide dominios para mayor poda.
   \item \texttt{input\_order + indomain\_split}/\texttt{min}: explora en orden de declaración; útil como línea base y en algunos solvers para certificar óptimo.
 \end{itemize}
-En los experimentos, el modelo deja \verb|solve minimize w;| para permitir que el \emph{runner} inyecte la anotación de búsqueda seleccionada externamente (p.~ej., \texttt{ff\_min}, \texttt{wdeg\_min}, \texttt{inorder\_split}).
 

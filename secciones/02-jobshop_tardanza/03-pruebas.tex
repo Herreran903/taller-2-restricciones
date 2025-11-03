@@ -2,7 +2,7 @@
 
 \subsection{Pruebas}\label{sec:01-jobshop_tardanza-pruebas}
 
-Con el fin de evaluar el desempeño del modelo propuesto, se llevaron a cabo pruebas sobre 10 instancias distintas del problema, numeradas como \texttt{test\_01} a \texttt{test\_10}, cada una con configuraciones variadas de trabajos, máquinas, duraciones, pesos y \emph{due dates}.
+Con el fin de evaluar el desempeño del modelo propuesto, se llevaron a cabo pruebas sobre 10 instancias distintas del problema, numeradas como \texttt{test\_01} a \texttt{test\_10}, cada una con configuraciones variadas de trabajos, máquinas, duraciones, pesos y \emph{due dates}. Algunas pruebas incluían trabajos idénticos para analizar el impacto de las restricciones de simetría.
 Se realizaron experimentos utilizando dos solvers diferentes: \texttt{gecode} y \texttt{chuffed}, con tres estrategias de búsqueda distintas: \texttt{ff\_min} (first-fail con indomain-min), \texttt{wdeg\_min} (dom-w-deg con indomain-min) y \texttt{inorder\_min} (input-order con indomain-min).
 
 \small
