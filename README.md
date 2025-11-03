@@ -141,6 +141,6 @@ python3 script/run_experiments.py \
   --model jobshop_tardanza.mzn \
   --data-dir tests \
   --solver gecode chuffed \
-  --strategy ff_min wdeg_split inorder_min \
+  --strategy ff_min wdeg_min inorder_min \
   --time-limit 60000
 ```

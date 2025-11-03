@@ -1,3 +1,13 @@
 % !TEX root = ../../main.tex
 
-\subsection{Análisis y conclusiones}\label{sec:01-jobshop_tardanza-analisis-y-conclusiones}
+\subsection{Análisis y conclusiones}\label{sec:01-jobshop_tardanza-analisis-conclusiones}
+
+Se evaluó el impacto de activar restricciones de simetría y redundancia, así como el desempeño de distintos \emph{solvers} y estrategias de búsqueda. De forma general, la inclusión de ambas restricciones fortaleció el modelo y favoreció una poda más efectiva del espacio de búsqueda, reduciendo nodos, fallos y tiempos en la mayoría de los casos, particularmente en instancias de mayor complejidad.
+
+En \texttt{Gecode}, el efecto de las restricciones depende fuertemente de la heurística empleada. Con \texttt{ff\_min}, se observaron mejoras en varias instancias, aunque con algunos escenarios donde la sobrecarga de propagación compensó los beneficios en poda. La heurística \texttt{wdeg\_min} sobresalió como la más eficiente, reduciendo de forma consistente los tiempos y el número de nodos y fallos, lo que indica un mayor aprovechamiento de la información adicional para priorizar decisiones relevantes. En contraste, \texttt{inorder\_min} mostró el peor desempeño: incluso con simetría y redundancia activadas, no logró explotar las ventajas del modelo reforzado, alcanzando mayores tiempos y niveles de exploración.
+
+El \emph{solver} \texttt{Chuffed} presentó un comportamiento estable y menos sensible a la heurística. Si bien en promedio mostró tiempos superiores respecto a \texttt{Gecode} en las instancias más exigentes, toleró bien la sobrecarga de propagación, beneficiándose de forma moderada al activar simetría y redundancia, especialmente bajo \texttt{wdeg\_min}.
+
+En términos comparativos, \texttt{wdeg\_min} fue la estrategia más competitiva, seguida por \texttt{ff\_min}, mientras que \texttt{inorder\_min} resultó sistemáticamente inferior. La combinación de restricciones de simetría y redundancia fue superior a su uso aislado, ya que la primera eliminó ramas equivalentes y la segunda fortaleció la propagación, generando una búsqueda más dirigida.
+
+La configuración más eficiente fue \textbf{\texttt{Gecode + wdeg\_min + simetría + redundancia}}, al combinar una fuerte capacidad de poda, una heurística informada y un modelo reforzado. Aunque \texttt{Chuffed} mostró buen comportamiento y estabilidad, \texttt{Gecode} logró resolver las instancias más complejas con menor esfuerzo computacional bajo configuraciones adecuadas.

@@ -1,9 +1,30 @@
 % !TEX root = ../../main.tex
 
-\subsection{Implementación}\label{sec:01-jobshop_tardanza-implementacion}
+\subsection{Implementación}\label{sec:jobshop_tardanza-implementacion}
 
 \subsubsection*{Modelo}
+El modelo captura la estructura del \emph{jobshop} con tardanza ponderada usando los parámetros \texttt{d}, \texttt{weights} y \texttt{due\_dates}, y las restricciones principales \(R1\)–\(R4\).
+Las variables \(s[i,j]\), \(\texttt{end\_job}[i]\) y \(\texttt{end}\) representan explícitamente el inicio y fin de cada operación y del plan; cualquier asignación factible de estas variables corresponde a un cronograma realizable.
+La restricción \(R1\) asegura la precedencia interna de cada trabajo (la tarea \(j\) debe finalizar antes de que comience \(j{+}1\)) y acota su última operación por \(\texttt{end}\).
+La restricción \(R2\) modela la capacidad unitaria por “máquina” (columna \(j\)): dos operaciones que comparten recurso no pueden solaparse, implementado con una disyunción \texttt{no\_overlap}.
+La restricción \(R3\) define los tiempos de finalización de cada trabajo, y \(R4\) define la tardanza \(T[i]\) mediante una linealización estándar \(T[i]\ge \texttt{end\_job}[i]-\texttt{due\_dates}[i],\ T[i]\ge 0\).
+La función objetivo acumula la \textbf{tardanza ponderada} \( \texttt{w}=\sum_i \texttt{weights}[i]\cdot T[i] \) y se minimiza, priorizando los trabajos cuya demora es más costosa.
 
 \subsubsection*{Restricciones redundantes}
+Las restricciones \(R5\)–\(R7\) están \textbf{lógicamente implicadas} por el núcleo del modelo y no alteran el conjunto de soluciones; su propósito es \textbf{fortalecer la propagación} y reducir el espacio de búsqueda.
+\(R5\) acota cada \(s[i,j]\) entre el inicio más temprano inducido por precedencias y el más tardío que aún permite completar el resto del trabajo, recortando dominios desde el inicio.
+\(R6\) (carga por máquina) fuerza \(\texttt{end}\) a ser al menos la suma de duraciones en cada columna \(j\), aportando una cota inferior global del makespan.
+\(R7\) (trabajo más largo) exige que \(\texttt{end}\) cubra, para todo trabajo, la suma de sus duraciones y respete \(\texttt{end}\ge \texttt{end\_job}[i]\), empujando cotas tempranas sobre el horizonte efectivo.
 
 \subsubsection*{Restricciones de simetría}
+Cuando existen trabajos \emph{idénticos} (misma fila de duraciones, mismo peso y mismo \emph{due date}), el problema admite soluciones indistinguibles por permutación de etiquetas.
+La restricción \(R8\) \textbf{rompe esta simetría} imponiendo un orden lexicográfico (opcionalmente, estricto) entre los vectores \((s[i,1],\dots,s[i,\texttt{tasks}])\) de pares \(i<k\) idénticos, de modo que se conserve un único representante canónico por clase de permutación. Esto elimina espejos del árbol sin afectar la optimalidad.
+
+\subsubsection*{Estrategias de búsqueda exploradas}
+Se evaluaron distintas \textbf{heurísticas} de selección de variables y valores sobre el vector aplanado \(\texttt{BRANCH\_VARS}\):
+\begin{itemize}
+  \item \texttt{first\_fail + indomain\_min}: elige la variable con dominio más pequeño y asigna el menor valor (favorece agendas “tempranas”).
+  \item \texttt{dom\_w\_deg + indomain\_min} / \texttt{dom\_w\_deg + indomain\_split}: prioriza variables con mayor grado ponderado de conflictos; con \texttt{split} divide dominios para mayor poda.
+  \item \texttt{input\_order + indomain\_split}/\texttt{min}: explora en orden de declaración; útil como línea base y en algunos solvers para certificar óptimo.
+\end{itemize}
+

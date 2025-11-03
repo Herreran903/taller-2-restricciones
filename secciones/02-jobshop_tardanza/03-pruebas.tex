@@ -2,30 +2,360 @@
 
 \subsection{Pruebas}\label{sec:01-jobshop_tardanza-pruebas}
 
-\begin{compactfloats}
-\begin{table}[H]
-  \centering
-  \small
-  \setlength{\tabcolsep}{10.8pt}
-  \caption{Resultados de pruebas \textbf{con} restricciones redundantes.}
-  \label{tab:pruebas-jobshop_tardanza-on}
-  \begin{tabular}{l l l l l r r r}
-    \toprule
-    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{time} & \textbf{nodes} & \textbf{fail} & \textbf{depth} \\
-  \end{tabular}
-\end{table}
+Con el fin de evaluar el desempeño del modelo propuesto, se llevaron a cabo pruebas sobre 10 instancias distintas del problema, numeradas como \texttt{test\_01} a \texttt{test\_10}, cada una con configuraciones variadas de trabajos, máquinas, duraciones, pesos y \emph{due dates}. Algunas pruebas incluían trabajos idénticos para analizar el impacto de las restricciones de simetría.
+Se realizaron experimentos utilizando dos solvers diferentes: \texttt{gecode} y \texttt{chuffed}, con tres estrategias de búsqueda distintas: \texttt{ff\_min} (first-fail con indomain-min), \texttt{wdeg\_min} (dom-w-deg con indomain-min) y \texttt{inorder\_min} (input-order con indomain-min).
 
-\begin{table}[H]
-  \centering
-  \small
-  \setlength{\tabcolsep}{10.8pt}
-  \caption{Resultados de pruebas \textbf{sin} restricciones redundantes.}
-  \label{tab:pruebas-jobshop_tardanza-off}
-  \begin{tabular}{l l l l r r r r}
-    \toprule
-    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{time} & \textbf{nodes} & \textbf{fail} & \textbf{depth} \\
-  \end{tabular}
-\end{table}
-\end{compactfloats}
+\small
 
-\FloatBarrier
+\renewcommand{\arraystretch}{0.9}
+
+\setlength{\aboverulesep}{3pt}
+\setlength{\belowrulesep}{3pt}
+\setlength{\abovetopsep}{3pt}
+\setlength{\belowbottomsep}{3pt}
+
+\small
+
+\begin{longtable}{l l l r r r r r}
+  \caption{Resultados de pruebas con \textbf{simetría} y \textbf{redundancia} activadas.}\label{tab:pruebas-tardanza-sim-red} \\
+  \toprule
+  \textbf{Archivo} & \textbf{Solver} & \textbf{Estrategia} & \textbf{Time (s)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} & \textbf{Solutions} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{Archivo} & \textbf{Solver} & \textbf{Estrategia} & \textbf{Time (s)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} & \textbf{Solutions} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endlastfoot
+
+  % ---------- GECODE :: ff_min ----------
+  test\_01 & gecode & ff\_min      & 1.065e$-$02 & 1,531    & 691     & 32  & 19 \\
+  test\_02 & gecode & ff\_min      & 4.871e$+$01 & 5,793,986 & 2,896,908 & 39  & 13 \\
+  test\_03 & gecode & ff\_min      & 3.437e$-$02 & 3,468    & 1,700   & 32  & 6  \\
+  test\_04 & gecode & ff\_min      & 5.983e$+$01 & 7,864,630 & 3,932,242 & 50  & 12 \\
+  test\_05 & gecode & ff\_min      & 2.767e$-$01 & 29,316   & 14,623  & 41  & 6  \\
+  test\_06 & gecode & ff\_min      & 5.987e$+$01 & 3,072,844 & 1,536,320 & 59  & 14 \\
+  test\_07 & gecode & ff\_min      & 7.340e$-$01 & 57,575   & 28,720  & 40  & 10 \\
+  test\_08 & gecode & ff\_min      & 5.988e$+$01 & 4,286,557 & 2,143,220 & 85  & 4  \\
+  test\_09 & gecode & ff\_min      & 5.987e$+$01 & 8,195,194 & 4,097,390 & 121 & 15 \\
+  test\_10 & gecode & ff\_min      & 5.990e$+$01 & 2,513,117 & 1,256,432 & 115 & 6  \\
+  \midrule
+  % ---------- GECODE :: wdeg_min ----------
+  test\_01 & gecode & wdeg\_min    & 4.363e$-$03 & 206      & 79      & 26  & 4  \\
+  test\_02 & gecode & wdeg\_min    & 1.370e$-$01 & 13,369   & 6,622   & 47  & 16 \\
+  test\_03 & gecode & wdeg\_min    & 3.601e$-$03 & 145      & 47      & 26  & 4  \\
+  test\_04 & gecode & wdeg\_min    & 7.505e$-$01 & 42,123   & 20,927  & 41  & 24 \\
+  test\_05 & gecode & wdeg\_min    & 1.064e$-$02 & 488      & 196     & 30  & 7  \\
+  test\_06 & gecode & wdeg\_min    & 2.384e$+$01 & 1,236,257 & 617,538 & 52  & 88 \\
+  test\_07 & gecode & wdeg\_min    & 4.371e$-$02 & 3,300    & 1,604   & 30  & 8  \\
+  test\_08 & gecode & wdeg\_min    & 5.991e$+$01 & 2,997,110 & 1,497,534 & 79  & 109 \\
+  test\_09 & gecode & wdeg\_min    & 5.989e$+$01 & 4,943,950 & 2,471,710 & 111 & 33 \\
+  test\_10 & gecode & wdeg\_min    & 5.990e$+$01 & 2,794,715 & 1,396,932 & 99  & 46 \\
+  \midrule
+  % ---------- GECODE :: inorder_min ----------
+  test\_01 & gecode & inorder\_min & 1.905e$-$02 & 2,927    & 1,435   & 31  & 7  \\
+  test\_02 & gecode & inorder\_min & 5.990e$+$01 & 16,241,086 & 8,120,490 & 46 & 8  \\
+  test\_03 & gecode & inorder\_min & 1.291e$-$01 & 33,773   & 16,853  & 34  & 8  \\
+  test\_04 & gecode & inorder\_min & 5.991e$+$01 & 11,598,996 & 5,799,459 & 49 & 5  \\
+  test\_05 & gecode & inorder\_min & 1.572e$-$01 & 19,547   & 9,743   & 42  & 5  \\
+  test\_06 & gecode & inorder\_min & 5.992e$+$01 & 9,130,824 & 4,565,325 & 61 & 11 \\
+  test\_07 & gecode & inorder\_min & 2.944e$+$01 & 4,949,092 & 2,474,519 & 43 & 4  \\
+  test\_08 & gecode & inorder\_min & 5.990e$+$01 & 4,695,883 & 2,347,825 & 87 & 10 \\
+  test\_09 & gecode & inorder\_min & 5.992e$+$01 & 7,464,543 & 3,732,182 & 124 & 4  \\
+  test\_10 & gecode & inorder\_min & 5.992e$+$01 & 5,269,906 & 2,634,793 & 121 & 14 \\
+  \midrule
+  % ---------- CHUFFED :: ff_min ----------
+  test\_01 & chuffed & ff\_min      & 2.000e$-$02 & 190      & 49      & 28  & 1  \\
+  test\_02 & chuffed & ff\_min      & 2.510e$-$01 & 7,641    & 5,088   & 33  & 1  \\
+  test\_03 & chuffed & ff\_min      & 2.100e$-$02 & 129      & 46      & 28  & 1  \\
+  test\_04 & chuffed & ff\_min      & 5.396e$+$01 & 638,797  & 506,779 & 43  & 1  \\
+  test\_05 & chuffed & ff\_min      & 3.700e$-$02 & 519      & 283     & 38  & 1  \\
+  test\_06 & chuffed & ff\_min      & 5.992e$+$01 & 711,650  & 621,438 & 53  & 1  \\
+  test\_07 & chuffed & ff\_min      & 1.090e$-$01 & 2,694    & 1,691   & 39  & 1  \\
+  test\_08 & chuffed & ff\_min      & 5.996e$+$01 & 537,346  & 415,303 & 75  & 1  \\
+  test\_09 & chuffed & ff\_min      & 6.002e$+$01 & 980,061  & 643,690 & 102 & 1  \\
+  test\_10 & chuffed & ff\_min      & 6.000e$+$01 & 551,774  & 470,968 & 108 & 1  \\
+  \midrule
+  % ---------- CHUFFED :: wdeg_min ----------
+  test\_01 & chuffed & wdeg\_min    & 2.300e$-$02 & 315      & 100     & 28  & 1  \\
+  test\_02 & chuffed & wdeg\_min    & 1.120e$-$01 & 4,005    & 2,307   & 33  & 1  \\
+  test\_03 & chuffed & wdeg\_min    & 2.800e$-$02 & 619      & 291     & 28  & 1  \\
+  test\_04 & chuffed & wdeg\_min    & 5.993e$+$01 & 684,551  & 603,301 & 43  & 1  \\
+  test\_05 & chuffed & wdeg\_min    & 4.100e$-$02 & 913      & 536     & 38  & 1  \\
+  test\_06 & chuffed & wdeg\_min    & 5.993e$+$01 & 807,031  & 669,196 & 53  & 1  \\
+  test\_07 & chuffed & wdeg\_min    & 1.650e$-$01 & 5,994    & 3,629   & 39  & 1  \\
+  test\_08 & chuffed & wdeg\_min    & 5.996e$+$01 & 424,552  & 327,098 & 75  & 1  \\
+  test\_09 & chuffed & wdeg\_min    & 6.002e$+$01 & 579,589  & 523,179 & 103 & 1  \\
+  test\_10 & chuffed & wdeg\_min    & 6.001e$+$01 & 519,772  & 434,900 & 108 & 1  \\
+  \midrule
+  % ---------- CHUFFED :: inorder_min ----------
+  test\_01 & chuffed & inorder\_min & 2.500e$-$02 & 315      & 100     & 28  & 1  \\
+  test\_02 & chuffed & inorder\_min & 1.140e$-$01 & 4,005    & 2,307   & 33  & 1  \\
+  test\_03 & chuffed & inorder\_min & 2.700e$-$02 & 619      & 291     & 28  & 1  \\
+  test\_04 & chuffed & inorder\_min & 5.993e$+$01 & 725,885  & 636,965 & 43  & 1  \\
+  test\_05 & chuffed & inorder\_min & 4.000e$-$02 & 913      & 536     & 38  & 1  \\
+  test\_06 & chuffed & inorder\_min & 5.993e$+$01 & 839,758  & 698,464 & 53  & 1  \\
+  test\_07 & chuffed & inorder\_min & 1.700e$-$01 & 5,994    & 3,629   & 39  & 1  \\
+  test\_08 & chuffed & inorder\_min & 5.996e$+$01 & 424,857  & 327,364 & 75  & 1  \\
+  test\_09 & chuffed & inorder\_min & 6.002e$+$01 & 582,205  & 525,583 & 103 & 1  \\
+  test\_10 & chuffed & inorder\_min & 6.002e$+$01 & 525,363  & 439,704 & 108 & 1  \\
+\end{longtable}
+
+\begin{longtable}{l l l r r r r r}
+  \caption{Resultados de \textbf{pruebas de redundancia}.}\label{tab:pruebas-tardanza-redundancia} \\
+  \toprule
+  \textbf{Archivo} & \textbf{Solver} & \textbf{Estrategia} & \textbf{Time (s)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} & \textbf{Solutions} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{Archivo} & \textbf{Solver} & \textbf{Estrategia} & \textbf{Time (s)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} & \textbf{Solutions} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endlastfoot
+
+  % ---------- GECODE :: ff_min ----------
+  test\_01 & gecode & ff\_min      & 1.138e$-$02 & 1,531     & 691      & 32  & 19 \\
+  test\_02 & gecode & ff\_min      & 5.198e$+$01 & 5,793,986 & 2,896,908 & 39 & 13 \\
+  test\_03 & gecode & ff\_min      & 2.570e$-$02 & 3,468     & 1,700    & 32  & 6  \\
+  test\_04 & gecode & ff\_min      & 5.991e$+$01 & 9,415,487 & 4,707,671 & 50 & 12 \\
+  test\_05 & gecode & ff\_min      & 3.010e$-$01 & 29,316    & 14,623   & 41  & 6  \\
+  test\_06 & gecode & ff\_min      & 5.991e$+$01 & 3,384,606 & 1,692,170 & 59 & 24 \\
+  test\_07 & gecode & ff\_min      & 6.728e$-$01 & 57,575    & 28,720   & 40  & 10 \\
+  test\_08 & gecode & ff\_min      & 5.989e$+$01 & 4,683,249 & 2,341,566 & 85 & 4  \\
+  test\_09 & gecode & ff\_min      & 5.993e$+$01 & 9,759,093 & 4,879,335 & 121 & 15 \\
+  test\_10 & gecode & ff\_min      & 5.993e$+$01 & 2,578,906 & 1,289,329 & 115 & 6  \\
+  \midrule
+  % ---------- GECODE :: wdeg_min ----------
+  test\_01 & gecode & wdeg\_min    & 8.080e$-$03 & 206       & 79       & 26  & 4  \\
+  test\_02 & gecode & wdeg\_min    & 1.225e$-$01 & 13,369    & 6,622    & 47  & 16 \\
+  test\_03 & gecode & wdeg\_min    & 3.482e$-$03 & 145       & 47       & 26  & 4  \\
+  test\_04 & gecode & wdeg\_min    & 7.573e$-$01 & 42,123    & 20,927   & 41  & 24 \\
+  test\_05 & gecode & wdeg\_min    & 8.939e$-$03 & 488       & 196      & 30  & 7  \\
+  test\_06 & gecode & wdeg\_min    & 2.327e$+$01 & 1,236,257 & 617,538  & 52  & 88 \\
+  test\_07 & gecode & wdeg\_min    & 4.185e$-$02 & 3,300     & 1,604    & 30  & 8  \\
+  test\_08 & gecode & wdeg\_min    & 5.992e$+$01 & 2,914,164 & 1,456,063 & 79 & 109 \\
+  test\_09 & gecode & wdeg\_min    & 5.990e$+$01 & 4,624,766 & 2,312,124 & 111 & 32 \\
+  test\_10 & gecode & wdeg\_min    & 5.991e$+$01 & 2,767,935 & 1,383,543 & 99  & 46 \\
+  \midrule
+  % ---------- GECODE :: inorder_min ----------
+  test\_01 & gecode & inorder\_min & 1.901e$-$02 & 2,927     & 1,435    & 31  & 7  \\
+  test\_02 & gecode & inorder\_min & 5.991e$+$01 & 15,047,128 & 7,523,510 & 46 & 8  \\
+  test\_03 & gecode & inorder\_min & 1.320e$-$01 & 33,773    & 16,853   & 34  & 8  \\
+  test\_04 & gecode & inorder\_min & 5.990e$+$01 & 11,314,336 & 5,657,129 & 49 & 5  \\
+  test\_05 & gecode & inorder\_min & 1.542e$-$01 & 19,547    & 9,743    & 42  & 5  \\
+  test\_06 & gecode & inorder\_min & 5.992e$+$01 & 9,086,343 & 4,543,084 & 61 & 11 \\
+  test\_07 & gecode & inorder\_min & 3.255e$+$01 & 4,949,092 & 2,474,519 & 43 & 4  \\
+  test\_08 & gecode & inorder\_min & 5.990e$+$01 & 4,424,991 & 2,212,380 & 87 & 10 \\
+  test\_09 & gecode & inorder\_min & 5.988e$+$01 & 7,359,602 & 3,679,711 & 124 & 4  \\
+  test\_10 & gecode & inorder\_min & 5.992e$+$01 & 5,070,006 & 2,534,844 & 121 & 14 \\
+  \midrule
+  % ---------- CHUFFED :: ff_min ----------
+  test\_01 & chuffed & ff\_min      & 2.700e$-$02 & 190       & 49       & 28  & 1  \\
+  test\_02 & chuffed & ff\_min      & 2.570e$-$01 & 7,641     & 5,088    & 33  & 1  \\
+  test\_03 & chuffed & ff\_min      & 2.200e$-$02 & 129       & 46       & 28  & 1  \\
+  test\_04 & chuffed & ff\_min      & 5.821e$+$01 & 638,797   & 506,779  & 43  & 1  \\
+  test\_05 & chuffed & ff\_min      & 3.400e$-$02 & 519       & 283      & 38  & 1  \\
+  test\_06 & chuffed & ff\_min      & 5.993e$+$01 & 650,419   & 568,318  & 53  & 1  \\
+  test\_07 & chuffed & ff\_min      & 9.900e$-$02 & 2,694     & 1,691    & 39  & 1  \\
+  test\_08 & chuffed & ff\_min      & 5.994e$+$01 & 475,322   & 370,887  & 75  & 1  \\
+  test\_09 & chuffed & ff\_min      & 6.003e$+$01 & 896,987   & 593,772  & 102 & 1  \\
+  test\_10 & chuffed & ff\_min      & 5.998e$+$01 & 477,096   & 406,792  & 108 & 1  \\
+  \midrule
+  % ---------- CHUFFED :: wdeg_min ----------
+  test\_01 & chuffed & wdeg\_min    & 3.700e$-$02 & 315       & 100      & 28  & 1  \\
+  test\_02 & chuffed & wdeg\_min    & 1.120e$-$01 & 4,005     & 2,307    & 33  & 1  \\
+  test\_03 & chuffed & wdeg\_min    & 2.900e$-$02 & 619       & 291      & 28  & 1  \\
+  test\_04 & chuffed & wdeg\_min    & 5.992e$+$01 & 710,097   & 623,602  & 43  & 1  \\
+  test\_05 & chuffed & wdeg\_min    & 4.300e$-$02 & 913       & 536      & 38  & 1  \\
+  test\_06 & chuffed & wdeg\_min    & 5.993e$+$01 & 814,688   & 675,986  & 53  & 1  \\
+  test\_07 & chuffed & wdeg\_min    & 1.670e$-$01 & 5,994     & 3,629    & 39  & 1  \\
+  test\_08 & chuffed & wdeg\_min    & 5.996e$+$01 & 420,601   & 323,680  & 75  & 1  \\
+  test\_09 & chuffed & wdeg\_min    & 6.000e$+$01 & 483,740   & 435,801  & 103 & 1  \\
+  test\_10 & chuffed & wdeg\_min    & 6.001e$+$01 & 452,343   & 379,011  & 108 & 1  \\
+  \midrule
+  % ---------- CHUFFED :: inorder_min ----------
+  test\_01 & chuffed & inorder\_min & 2.100e$-$02 & 315       & 100      & 28  & 1  \\
+  test\_02 & chuffed & inorder\_min & 1.150e$-$01 & 4,005     & 2,307    & 33  & 1  \\
+  test\_03 & chuffed & inorder\_min & 3.500e$-$02 & 619       & 291      & 28  & 1  \\
+  test\_04 & chuffed & inorder\_min & 5.990e$+$01 & 522,603   & 462,918  & 43  & 1  \\
+  test\_05 & chuffed & inorder\_min & 3.900e$-$02 & 913       & 536      & 38  & 1  \\
+  test\_06 & chuffed & inorder\_min & 5.994e$+$01 & 804,946   & 667,375  & 53  & 1  \\
+  test\_07 & chuffed & inorder\_min & 1.630e$-$01 & 5,994     & 3,629    & 39  & 1  \\
+  test\_08 & chuffed & inorder\_min & 5.996e$+$01 & 409,180   & 313,693  & 75  & 1  \\
+  test\_09 & chuffed & inorder\_min & 6.002e$+$01 & 496,433   & 447,544  & 103 & 1  \\
+  test\_10 & chuffed & inorder\_min & 6.003e$+$01 & 487,234   & 407,625  & 108 & 1  \\
+\end{longtable}
+
+\begin{longtable}{l l l r r r r r}
+  \caption{Resultados de \textbf{pruebas de simetría}.}\label{tab:pruebas-tardanza-simetría} \\
+  \toprule
+  \textbf{Archivo} & \textbf{Solver} & \textbf{Estrategia} & \textbf{Time (s)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} & \textbf{Solutions} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{Archivo} & \textbf{Solver} & \textbf{Estrategia} & \textbf{Time (s)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} & \textbf{Solutions} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endlastfoot
+
+  % ---------- GECODE :: ff_min ----------
+  test\_01 & gecode & ff\_min      & 1.043e$-$02 & 1,531     & 691      & 32  & 19 \\
+  test\_02 & gecode & ff\_min      & 4.754e$+$01 & 5,793,986 & 2,896,908 & 39 & 13 \\
+  test\_03 & gecode & ff\_min      & 2.465e$-$02 & 3,468     & 1,700    & 32  & 6  \\
+  test\_04 & gecode & ff\_min      & 5.990e$+$01 & 9,507,553 & 4,753,704 & 50 & 12 \\
+  test\_05 & gecode & ff\_min      & 2.349e$-$01 & 29,316    & 14,623   & 41  & 6  \\
+  test\_06 & gecode & ff\_min      & 5.990e$+$01 & 3,347,499 & 1,673,617 & 59 & 24 \\
+  test\_07 & gecode & ff\_min      & 6.800e$-$01 & 57,575    & 28,720   & 40  & 10 \\
+  test\_08 & gecode & ff\_min      & 5.990e$+$01 & 4,624,479 & 2,312,180 & 85 & 4  \\
+  test\_09 & gecode & ff\_min      & 5.985e$+$01 & 9,670,279 & 4,834,931 & 121 & 15 \\
+  test\_10 & gecode & ff\_min      & 5.991e$+$01 & 2,460,921 & 1,230,335 & 115 & 6  \\
+  \midrule
+  % ---------- GECODE :: wdeg_min ----------
+  test\_01 & gecode & wdeg\_min    & 3.850e$-$03 & 206        & 79        & 26  & 4  \\
+  test\_02 & gecode & wdeg\_min    & 1.312e$-$01 & 13,369     & 6,622     & 47  & 16 \\
+  test\_03 & gecode & wdeg\_min    & 3.017e$-$03 & 145        & 47        & 26  & 4  \\
+  test\_04 & gecode & wdeg\_min    & 5.654e$-$01 & 31,574     & 15,648    & 39  & 25 \\
+  test\_05 & gecode & wdeg\_min    & 1.537e$-$02 & 488        & 196       & 30  & 7  \\
+  test\_06 & gecode & wdeg\_min    & 2.185e$+$01 & 1,088,622  & 543,749   & 52  & 84 \\
+  test\_07 & gecode & wdeg\_min    & 4.958e$-$02 & 3,300      & 1,604     & 30  & 8  \\
+  test\_08 & gecode & wdeg\_min    & 5.991e$+$01 & 2,694,022  & 1,346,224 & 78  & 79 \\
+  test\_09 & gecode & wdeg\_min    & 5.991e$+$01 & 5,420,853  & 2,710,086 & 93  & 51 \\
+  test\_10 & gecode & wdeg\_min    & 5.992e$+$01 & 2,912,369  & 1,455,768 & 99  & 48 \\
+  \midrule
+  % ---------- GECODE :: inorder_min ----------
+  test\_01 & gecode & inorder\_min & 1.782e$-$02 & 2,927     & 1,435     & 31  & 7  \\
+  test\_02 & gecode & inorder\_min & 5.990e$+$01 & 15,699,062 & 7,849,480 & 46 & 8  \\
+  test\_03 & gecode & inorder\_min & 1.264e$-$01 & 33,773    & 16,853    & 34  & 8  \\
+  test\_04 & gecode & inorder\_min & 5.986e$+$01 & 11,410,430 & 5,705,176 & 49 & 5  \\
+  test\_05 & gecode & inorder\_min & 1.533e$-$01 & 19,547    & 9,743     & 42  & 5  \\
+  test\_06 & gecode & inorder\_min & 5.992e$+$01 & 9,353,768 & 4,676,795  & 61 & 11 \\
+  test\_07 & gecode & inorder\_min & 2.991e$+$01 & 4,949,092 & 2,474,519  & 43 & 4  \\
+  test\_08 & gecode & inorder\_min & 5.991e$+$01 & 4,784,968 & 2,392,369  & 87 & 10 \\
+  test\_09 & gecode & inorder\_min & 5.986e$+$01 & 7,219,495 & 3,609,657  & 124 & 4  \\
+  test\_10 & gecode & inorder\_min & 5.991e$+$01 & 5,126,920 & 2,563,300  & 121 & 14 \\
+  \midrule
+  % ---------- CHUFFED :: ff_min ----------
+  test\_01 & chuffed & ff\_min      & 3.800e$-$02 & 190      & 49       & 28  & 1  \\
+  test\_02 & chuffed & ff\_min      & 2.910e$-$01 & 7,641    & 5,088    & 33  & 1  \\
+  test\_03 & chuffed & ff\_min      & 2.700e$-$02 & 129      & 46       & 28  & 1  \\
+  test\_04 & chuffed & ff\_min      & 5.644e$+$01 & 638,797  & 506,779  & 43  & 1  \\
+  test\_05 & chuffed & ff\_min      & 3.600e$-$02 & 519      & 283      & 38  & 1  \\
+  test\_06 & chuffed & ff\_min      & 5.994e$+$01 & 732,151  & 638,663  & 53  & 1  \\
+  test\_07 & chuffed & ff\_min      & 1.060e$-$01 & 2,694    & 1,691    & 39  & 1  \\
+  test\_08 & chuffed & ff\_min      & 5.996e$+$01 & 569,315  & 439,784  & 75  & 1  \\
+  test\_09 & chuffed & ff\_min      & 6.001e$+$01 & 1,010,905 & 663,242 & 102 & 1  \\
+  test\_10 & chuffed & ff\_min      & 6.002e$+$01 & 533,428  & 454,936  & 108 & 1  \\
+  \midrule
+  % ---------- CHUFFED :: wdeg_min ----------
+  test\_01 & chuffed & wdeg\_min    & 2.400e$-$02 & 315      & 100      & 28  & 1  \\
+  test\_02 & chuffed & wdeg\_min    & 1.150e$-$01 & 4,005    & 2,307    & 33  & 1  \\
+  test\_03 & chuffed & wdeg\_min    & 2.800e$-$02 & 619      & 291      & 28  & 1  \\
+  test\_04 & chuffed & wdeg\_min    & 5.993e$+$01 & 508,979  & 450,785  & 43  & 1  \\
+  test\_05 & chuffed & wdeg\_min    & 4.500e$-$02 & 913      & 536      & 38  & 1  \\
+  test\_06 & chuffed & wdeg\_min    & 5.994e$+$01 & 738,629  & 606,007  & 53  & 1  \\
+  test\_07 & chuffed & wdeg\_min    & 1.890e$-$01 & 5,994    & 3,629    & 39  & 1  \\
+  test\_08 & chuffed & wdeg\_min    & 5.995e$+$01 & 401,660  & 307,808  & 75  & 1  \\
+  test\_09 & chuffed & wdeg\_min    & 5.994e$+$01 & 431,087  & 388,604  & 103 & 1  \\
+  test\_10 & chuffed & wdeg\_min    & 6.002e$+$01 & 410,357  & 343,599  & 108 & 1  \\
+  \midrule
+  % ---------- CHUFFED :: inorder_min ----------
+  test\_01 & chuffed & inorder\_min & 2.500e$-$02 & 315      & 100      & 28  & 1  \\
+  test\_02 & chuffed & inorder\_min & 1.410e$-$01 & 4,005    & 2,307    & 33  & 1  \\
+  test\_03 & chuffed & inorder\_min & 2.900e$-$02 & 619      & 291      & 28  & 1  \\
+  test\_04 & chuffed & inorder\_min & 5.993e$+$01 & 725,349  & 636,538  & 43  & 1  \\
+  test\_05 & chuffed & inorder\_min & 4.000e$-$02 & 913      & 536      & 38  & 1  \\
+  test\_06 & chuffed & inorder\_min & 5.994e$+$01 & 821,136  & 681,804  & 53  & 1  \\
+  test\_07 & chuffed & inorder\_min & 1.620e$-$01 & 5,994    & 3,629    & 39  & 1  \\
+  test\_08 & chuffed & inorder\_min & 5.996e$+$01 & 409,180  & 313,693  & 75  & 1  \\
+  test\_09 & chuffed & inorder\_min & 6.002e$+$01 & 508,407  & 458,351  & 103 & 1  \\
+  test\_10 & chuffed & inorder\_min & 6.002e$+$01 & 387,749  & 325,456  & 108 & 1  \\
+\end{longtable}
+
+\begin{longtable}{l l l r r r r r}
+  \caption{Resultados de \textbf{pruebas sin redundancia y simetría}.}\label{tab:pruebas-tardanza-no-redundancia-no-simertrias} \\
+  \toprule
+  \textbf{Archivo} & \textbf{Solver} & \textbf{Estrategia} & \textbf{Time (s)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} & \textbf{Solutions} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{Archivo} & \textbf{Solver} & \textbf{Estrategia} & \textbf{Time (s)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} & \textbf{Solutions} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endlastfoot
+
+  % ---------- GECODE :: ff_min ----------
+  test\_01 & gecode & ff\_min      & 1.085e$-$02 & 1,531     & 691      & 32  & 19 \\
+  test\_02 & gecode & ff\_min      & 5.990e$+$01 & 6,893,232 & 3,446,525 & 39 & 13 \\
+  test\_03 & gecode & ff\_min      & 2.755e$-$02 & 3,468     & 1,700    & 32  & 6  \\
+  test\_04 & gecode & ff\_min      & 5.991e$+$01 & 11,369,346 & 5,684,600 & 50 & 12 \\
+  test\_05 & gecode & ff\_min      & 2.335e$-$01 & 29,316    & 14,623   & 41  & 6  \\
+  test\_06 & gecode & ff\_min      & 5.991e$+$01 & 3,278,092 & 1,638,910 & 59 & 24 \\
+  test\_07 & gecode & ff\_min      & 7.687e$-$01 & 59,287    & 29,576   & 40  & 10 \\
+  test\_08 & gecode & ff\_min      & 5.991e$+$01 & 5,163,625 & 2,581,747 & 85 & 4  \\
+  test\_09 & gecode & ff\_min      & 5.993e$+$01 & 10,454,140 & 5,226,858 & 121 & 15 \\
+  test\_10 & gecode & ff\_min      & 5.992e$+$01 & 2,568,496 & 1,284,123 & 115 & 6  \\
+  \midrule
+  % ---------- GECODE :: wdeg_min ----------
+  test\_01 & gecode & wdeg\_min    & 3.994e$-$03 & 206       & 79        & 26  & 4  \\
+  test\_02 & gecode & wdeg\_min    & 1.405e$-$01 & 13,153    & 6,539     & 27  & 8  \\
+  test\_03 & gecode & wdeg\_min    & 4.835e$-$03 & 145       & 47        & 26  & 4  \\
+  test\_04 & gecode & wdeg\_min    & 1.219e$+$00 & 86,572    & 43,205    & 42  & 13 \\
+  test\_05 & gecode & wdeg\_min    & 1.125e$-$02 & 625       & 271       & 32  & 7  \\
+  test\_06 & gecode & wdeg\_min    & 2.159e$+$01 & 1,088,622 & 543,749   & 52  & 84 \\
+  test\_07 & gecode & wdeg\_min    & 3.411e$-$02 & 1,999     & 959       & 27  & 8  \\
+  test\_08 & gecode & wdeg\_min    & 5.989e$+$01 & 4,488,635 & 2,244,247 & 65  & 12 \\
+  test\_09 & gecode & wdeg\_min    & 5.991e$+$01 & 6,690,656 & 3,345,160 & 104 & 13 \\
+  test\_10 & gecode & wdeg\_min    & 5.991e$+$01 & 2,285,578 & 1,142,271 & 90  & 57 \\
+  \midrule
+  % ---------- GECODE :: inorder_min ----------
+  test\_01 & gecode & inorder\_min & 1.858e$-$02 & 2,927     & 1,435     & 31  & 7  \\
+  test\_02 & gecode & inorder\_min & 5.990e$+$01 & 18,223,133 & 9,111,515 & 46 & 8  \\
+  test\_03 & gecode & inorder\_min & 1.262e$-$01 & 33,773    & 16,853    & 34  & 8  \\
+  test\_04 & gecode & inorder\_min & 5.991e$+$01 & 12,199,112 & 6,099,517 & 49 & 5  \\
+  test\_05 & gecode & inorder\_min & 1.573e$-$01 & 23,531    & 11,735    & 42  & 5  \\
+  test\_06 & gecode & inorder\_min & 5.992e$+$01 & 9,464,195 & 4,732,009 & 61 & 11 \\
+  test\_07 & gecode & inorder\_min & 5.991e$+$01 & 9,466,590 & 4,733,263 & 43 & 4  \\
+  test\_08 & gecode & inorder\_min & 5.992e$+$01 & 5,824,194 & 2,911,981 & 87 & 10 \\
+  test\_09 & gecode & inorder\_min & 5.992e$+$01 & 7,308,989 & 3,654,404 & 124 & 4  \\
+  test\_10 & gecode & inorder\_min & 5.986e$+$01 & 5,199,574 & 2,599,628 & 121 & 14 \\
+  \midrule
+  % ---------- CHUFFED :: ff_min ----------
+  test\_01 & chuffed & ff\_min      & 2.500e$-$02 & 190      & 49       & 28  & 1  \\
+  test\_02 & chuffed & ff\_min      & 9.520e$-$01 & 31,416   & 22,484   & 33  & 1  \\
+  test\_03 & chuffed & ff\_min      & 3.000e$-$02 & 129      & 46       & 28  & 1  \\
+  test\_04 & chuffed & ff\_min      & 5.992e$+$01 & 760,664  & 538,815  & 43  & 1  \\
+  test\_05 & chuffed & ff\_min      & 4.600e$-$02 & 952      & 641      & 38  & 1  \\
+  test\_06 & chuffed & ff\_min      & 5.994e$+$01 & 683,445  & 598,218  & 53  & 1  \\
+  test\_07 & chuffed & ff\_min      & 3.910e$-$01 & 11,666   & 8,132    & 39  & 1  \\
+  test\_08 & chuffed & ff\_min      & 5.995e$+$01 & 485,335  & 375,358  & 75  & 1  \\
+  test\_09 & chuffed & ff\_min      & 6.002e$+$01 & 977,275  & 657,441  & 102 & 1  \\
+  test\_10 & chuffed & ff\_min      & 6.001e$+$01 & 553,750  & 472,763  & 108 & 1  \\
+  \midrule
+  % ---------- CHUFFED :: wdeg_min ----------
+  test\_01 & chuffed & wdeg\_min    & 3.300e$-$02 & 315      & 100      & 28  & 1  \\
+  test\_02 & chuffed & wdeg\_min    & 2.476e$+$00 & 76,577   & 53,661   & 33  & 1  \\
+  test\_03 & chuffed & wdeg\_min    & 2.700e$-$02 & 619      & 291      & 28  & 1  \\
+  test\_04 & chuffed & wdeg\_min    & 5.990e$+$01 & 586,938  & 515,704  & 43  & 1  \\
+  test\_05 & chuffed & wdeg\_min    & 6.500e$-$02 & 1,171    & 796      & 38  & 1  \\
+  test\_06 & chuffed & wdeg\_min    & 5.994e$+$01 & 786,334  & 650,470  & 53  & 1  \\
+  test\_07 & chuffed & wdeg\_min    & 1.134e$+$00 & 28,420   & 22,712   & 39  & 1  \\
+  test\_08 & chuffed & wdeg\_min    & 5.996e$+$01 & 689,657  & 509,768  & 75  & 1  \\
+  test\_09 & chuffed & wdeg\_min    & 6.002e$+$01 & 620,984  & 548,774  & 103 & 1  \\
+  test\_10 & chuffed & wdeg\_min    & 6.001e$+$01 & 524,616  & 438,991  & 108 & 1  \\
+  \midrule
+  % ---------- CHUFFED :: inorder_min ----------
+  test\_01 & chuffed & inorder\_min & 3.400e$-$02 & 315      & 100      & 28  & 1  \\
+  test\_02 & chuffed & inorder\_min & 3.133e$+$00 & 76,577   & 53,661   & 33  & 1  \\
+  test\_03 & chuffed & inorder\_min & 3.100e$-$02 & 619      & 291      & 28  & 1  \\
+  test\_04 & chuffed & inorder\_min & 5.992e$+$01 & 446,724  & 394,810  & 43  & 1  \\
+  test\_05 & chuffed & inorder\_min & 6.900e$-$02 & 1,171    & 796      & 38  & 1  \\
+  test\_06 & chuffed & inorder\_min & 5.989e$+$01 & 697,436  & 568,501  & 53  & 1  \\
+  test\_07 & chuffed & inorder\_min & 1.159e$+$00 & 28,420   & 22,712   & 39  & 1  \\
+  test\_08 & chuffed & inorder\_min & 5.996e$+$01 & 555,220  & 408,740  & 75  & 1  \\
+  test\_09 & chuffed & inorder\_min & 5.999e$+$01 & 575,858  & 507,879  & 103 & 1  \\
+  test\_10 & chuffed & inorder\_min & 6.001e$+$01 & 524,616  & 438,991  & 108 & 1  \\
+\end{longtable}

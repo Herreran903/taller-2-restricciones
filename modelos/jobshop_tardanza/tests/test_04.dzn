@@ -1,0 +1,18 @@
+% ============ TEST_04 — 8x5 con triple simetría (1,2,3 idénticos) ==========
+% y un “casi idéntico” (4) para comprobar que NO cae en identical_jobs.
+jobs = 8;
+tasks = 5;
+
+d = [|
+  2, 3, 2, 3, 4 |  % 1
+  2, 3, 2, 3, 4 |  % 2 (idéntico a 1)
+  2, 3, 2, 3, 4 |  % 3 (idéntico a 1)
+  2, 3, 2, 4, 4 |  % 4 (cambia una tarea)
+  5, 1, 2, 6, 2 |
+  3, 5, 3, 1, 5 |
+  4, 4, 4, 4, 1 |
+  1, 7, 2, 2, 2
+|];
+
+weights   = [2, 2, 2, 2, 3, 4, 5, 1];   % mismos pesos en (1,2,3,4) para no falsear
+due_dates = [9, 9, 9, 9, 8,12,11,10];   % mismos due en (1,2,3,4); 4 no es idéntico por d
