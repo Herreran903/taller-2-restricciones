@@ -1,8 +1,17 @@
 %!TEX root = ../../main.tex
 
 \subsection{Pruebas}\label{sec:01-jobshop_mantenimiento-pruebas}
+Con el fin de evaluar el desempeño del modelo propuesto, se llevaron a cabo pruebas sobre 10 instancias distintas del problema, numeradas como \texttt{test\_01} a \texttt{test\_10}, cada una con configuraciones variadas de trabajos, máquinas y ventanas de mantenimiento. Para cada instancia, se analizaron múltiples combinaciones de solver y estrategias de búsqueda. Las ejecuciones se realizaron tanto con como sin restricciones redundantes y de simetría. Se impuso un límite de tiempo de 60 segundos por ejecución, por lo que en algunas instancias el solver alcanzó dicho umbral sin concluir la búsqueda completa.
+
 
 \small
+
+\renewcommand{\arraystretch}{0.9}
+
+\setlength{\aboverulesep}{3pt}
+\setlength{\belowrulesep}{3pt}
+\setlength{\abovetopsep}{3pt}
+\setlength{\belowbottomsep}{3pt}
 
 \begin{longtable}{l l l l r r r r}
     \caption{Resultados de pruebas \textbf{con} restricciones redundantes.}\label{tab:pruebas-jobshop_mantenimiento-on}                                   \\
@@ -197,41 +206,7 @@
 \end{longtable}
 
 \begin{longtable}{l l l l r r r r}
-    \caption{Resultados de pruebas \textbf{con} restricciones redundantes y \textbf{sin} simetría.}\label{tab:pruebas-jobshop_mantenimiento-on-off-1}     \\
-    \toprule
-    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
-    \midrule
-    \endfirsthead
-    \toprule
-    \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
-    \midrule
-    \endhead
-    \bottomrule
-    \endlastfoot
-
-    test\_01         & gecode          & first\_fail       & indomain\_min     & 5.143              & 171            & 73                & 13             \\
-    test\_02         & gecode          & first\_fail       & indomain\_min     & 1251.807           & 641482         & 320733            & 28             \\
-    \midrule
-    test\_01         & gecode          & dom\_w\_deg       & indomain\_split   & 0.822              & 153            & 54                & 34             \\
-    test\_02         & gecode          & dom\_w\_deg       & indomain\_split   & 9.131              & 3911           & 1934              & 65             \\
-    \midrule
-    test\_01         & gecode          & input\_order      & indomain\_min     & 1.239              & 360            & 174               & 13             \\
-    test\_02         & gecode          & input\_order      & indomain\_min     & 17282.710          & 15001952       & 7500969           & 26             \\
-    \midrule
-    test\_01         & chuffed         & first\_fail       & indomain\_min     & 3.000              & 76             & 19                & 14             \\
-    test\_02         & chuffed         & first\_fail       & indomain\_min     & 35.000             & 3546           & 2824              & 22             \\
-    \midrule
-    test\_01         & chuffed         & dom\_w\_deg       & indomain\_split   & 1.000              & 135            & 17                & 53             \\
-    test\_02         & chuffed         & dom\_w\_deg       & indomain\_split   & 10.000             & 3069           & 784               & 117            \\
-    \midrule
-    \multicolumn{8}{l}{\textit{Chuffed (Estrategia: input\_order + indomain\_min)}}                                                                       \\
-    \midrule
-    test\_01         & chuffed         & input\_order      & indomain\_min     & 1.000              & 57             & 20                & 14             \\
-    test\_02         & chuffed         & input\_order      & indomain\_min     & 16.000             & 2050           & 1261              & 22             \\
-\end{longtable}
-
-\begin{longtable}{l l l l r r r r}
-    \caption{Resultados de pruebas \textbf{con} restricciones redundantes y \textbf{sin} simetría.}\label{tab:pruebas-jobshop_mantenimiento-on-off}       \\
+    \caption{Resultados de pruebas \textbf{con} restricciones redundantes y \textbf{sin} simetría.}\label{tab:pruebas-jobshop_mantenimiento-on-off}     \\
     \toprule
     \textbf{Archivo} & \textbf{Solver} & \textbf{Var heur} & \textbf{Val heur} & \textbf{Time (ms)} & \textbf{Nodes} & \textbf{Failures} & \textbf{Depth} \\
     \midrule
