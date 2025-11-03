@@ -135,6 +135,12 @@ OPTIMIZE_TEMPLATES = {
         VALH="indomain_split",
         OBJ_FUN=OBJ_FUN_PLACEHOLDER,
     ),
+        "wdeg_min": _SOLVE_LINE_OPTIMIZE.format(
+        VARS="{VARS}",
+        VARH="dom_w_deg",
+        VALH="indomain_min",
+        OBJ_FUN=OBJ_FUN_PLACEHOLDER,
+    ),
 }
 
 # Plantillas para el modo SATISFY
@@ -150,6 +156,9 @@ SATISFY_TEMPLATES = {
     ),
     "inorder_split": _SOLVE_LINE_SATISFY.format(
         VARS="{VARS}", VARH="input_order", VALH="indomain_split"
+    ),
+        "wdeg_min": _SOLVE_LINE_SATISFY.format(
+        VARS="{VARS}", VARH="dom_w_deg", VALH="indomain_min"
     ),
 }
 

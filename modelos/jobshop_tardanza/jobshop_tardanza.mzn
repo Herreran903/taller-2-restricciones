@@ -75,19 +75,49 @@ constraint
 % o acotar 'end' con la suma mínima de la “cadena crítica”, etc.
 % De momento se dejan fuera para mantener el modelo limpio.
 
+%(1) Ventanas de tiempo por operación (EST/LST)
+% Acota cada inicio s[i,j] entre: 
+% - EST[i,j]: lo más temprano posible (suma de duraciones previas del job i)
+% - LST[i,j]: lo más tarde posible para que aún quepa lo que falta del job i
+array[JOB,TASK] of int: EST = 
+  array2d(JOB, TASK, [ sum(t in 1..j-1)(d[i,t]) | i in JOB, j in TASK ]);
+
+array[JOB,TASK] of int: REM_AFTER =
+  array2d(JOB, TASK, [ sum(t in j..tasks)(d[i,t]) | i in JOB, j in TASK ]);
+
+array[JOB,TASK] of int: LST = 
+  array2d(JOB, TASK, [ total - REM_AFTER[i,j] | i in JOB, j in TASK ]);
+  
+constraint forall(i in JOB, j in TASK)(
+  s[i,j] >= EST[i,j] /\ s[i,j] <= LST[i,j]
+);
+
+%(2) Cota por carga de “máquina” (una por índice de tarea) 
+% end no puede ser menor que la suma de duraciones asignadas a cada máquina j.
+
+array[TASK] of int: load_by_machine = 
+  [ sum(i in JOB)(d[i,j]) | j in TASK ];
+
+constraint forall(j in TASK)( end >= load_by_machine[j] );
+
+% (3) Cota por “trabajo más largo”
+% end tampoco puede ser menor que la duración total de cada job.
+
+array[JOB] of int: job_length = [ sum(j in TASK)(d[i,j]) | i in JOB ];
+
+constraint forall(i in JOB)( end >= job_length[i] );
+
 constraint forall(i in JOB)( end >= end_job[i] );
   
 % ======================= Simetría =============================
-% Se busca romper simetrias mediante trabajos identicos.
-
+% Rompe simetría entre trabajos idénticos con orden lexicográfico estricto.
+% Para cada par (i,k) idéntico (i<k), existe un primer j donde difieren
+% y allí forzamos s[i,j] < s[k,j], manteniendo igualdad en posiciones previa
 constraint
   forall(i, k in JOB where i < k /\ identical_jobs(i,k)) (
-    s[i,1] <= s[k,1]
-  );
-  
-constraint
-  forall(i, k in JOB where i < k /\ identical_jobs(i,k)) (
-    sum(j in TASK)( s[i,j] ) <= sum(j in TASK)( s[k,j] )
+    exists(j in TASK)(
+      s[i,j] < s[k,j] /\ forall(h in 1..j-1)( s[i,h] = s[k,h] )
+    )
   );
 
 % ======================= Búsqueda =============================
@@ -95,12 +125,17 @@ constraint
 array[1..jobs*tasks] of var 0..total: BRANCH_VARS =
   [ s[i,j] | i in JOB, j in TASK ];
 
-solve :: seq_search([
-          int_search(BRANCH_VARS, first_fail, indomain_min),
-          int_search([end], input_order, indomain_min),
-          int_search([w], input_order, indomain_min)
-       ])
-       minimize w;
+%[H1] Heurística 1 — clásica
+% solve :: int_search(BRANCH_VARS, first_fail, indomain_min, complete) minimize w;
+
+%[H2] Heurística 2 — informada por conflictos
+solve :: int_search(BRANCH_VARS, dom_w_deg, indomain_min, complete) minimize w;
+
+%[H3] Heurística 3 — orden de entrada
+% solve :: int_search(BRANCH_VARS, input_order, indomain_split, complete) minimize w;   
+
+% [D] Default del solver
+%solve minimize w;
 
 % ======================= Salida ===============================
 output

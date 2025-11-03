@@ -1,3 +1,4 @@
 % !TEX root = ../../main.tex
 
-\section{Jobshop Mantenimiento}\label{sec:01-jobshop_mantenimiento}
+\section{Jobshop con Tardanza Ponderada}
+En el \emph{jobshop} con tardanza ponderada, cada trabajo debe ejecutar sus operaciones en una secuencia fija de máquinas, respetando precedencias y evitando solapes (cada máquina procesa a lo sumo una operación a la vez). A cada trabajo $i$ se le asignan un \emph{due date} y un peso $w_i$; su tardanza se define como $T_i=\max\{0,\ \text{end\_job}_i-\text{due\_dates}_i\}$. El objetivo es programar los inicios $s_{i,j}$ para minimizar la \textbf{suma ponderada de tardanzas} $\sum_i w_i\,T_i$, priorizando (vía $w_i$) aquellos trabajos cuya demora resulta más costosa, bajo un horizonte acotado y cumpliendo las restricciones de precedencia y no solape por máquina.

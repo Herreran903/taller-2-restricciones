@@ -1,0 +1,22 @@
+% === Instancia con simetrías (tres pares de trabajos idénticos) ===
+% PARES IDÉNTICOS (deben activar identical_jobs(i,k)):
+% - (1,2), (3,4), (5,6)
+
+jobs = 6;
+tasks = 5;
+
+% d[i,*] idénticas dentro de cada par
+d = [|
+  2, 5, 3, 2, 4 |  % job 1
+  2, 5, 3, 2, 4 |  % job 2  (idéntico a 1)
+  1, 4, 6, 2, 3 |  % job 3
+  1, 4, 6, 2, 3 |  % job 4  (idéntico a 3)
+  7, 2, 2, 5, 1 |  % job 5
+  7, 2, 2, 5, 1   % job 6  (idéntico a 5)
+|];
+
+% pesos iguales dentro de cada par
+weights = [3, 3, 2, 2, 5, 5];
+
+% due dates iguales dentro de cada par
+due_dates = [10, 10, 7, 7, 12, 12];
